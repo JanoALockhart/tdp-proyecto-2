@@ -29,7 +29,11 @@ public abstract class Tetrimino {
 		}
 	}
 	
-	public abstract void caer();
+	public void caer() {
+		for(Bloque bloq : misBloques) {
+			bloq.setPosY(bloq.getPosY()-1);
+		}
+	}
 	
 
 }
