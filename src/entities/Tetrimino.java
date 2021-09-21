@@ -3,7 +3,7 @@ import java.util.*;
 
 
 public abstract class Tetrimino {
-	protected Bloque pivote;
+	protected Bloque pivote, A, B, C;
 	protected int angulo;
 	protected List<Bloque> misBloques; //TODO elegir lista o arreglo
 	
