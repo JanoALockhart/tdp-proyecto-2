@@ -20,6 +20,19 @@ public class Bloque {
 		ocupado=false;
 		dirImage=img;
 	}
+	
+	/**
+	 * Método constructor de la clase Bloque cuando el juego aparece un tetrimino
+	 * @param img Posición en memoria de windows de la imagen del bloque
+	 * @param x posición en el eje X
+	 * @param y posición en el eje Y
+	 */
+	public Bloque(String img, int x, int y) {
+		posX=x;
+		posY=y;
+		ocupado=false;
+		dirImage=img;
+	}
 
 	/**
 	 * Configura la posición del bloque en el eje X de la grilla
