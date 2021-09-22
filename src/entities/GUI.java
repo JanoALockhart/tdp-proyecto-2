@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -126,9 +127,7 @@ public class GUI extends JFrame {
 		
 		matrizLabels = new JLabel[CANT_FILAS][CANT_COL];
 		//Ajustar tamaño magen bloque vacio al tamaño de la celda
-		ImageIcon img = new ImageIcon(pruebaLayouts.class.getResource("/images/bloqueVacio.png"));
-		Image imgResized = img.getImage().getScaledInstance(TAM_CELDA, TAM_CELDA, Image.SCALE_SMOOTH);
-		img = new ImageIcon(imgResized);
+		ImageIcon img = reEscalar("/images/bloqueVacio.png");
 		JLabel celda;
 		
 		//Inicializar los labels con la imagen y agregarlos a la matriz y al panel grafico
@@ -166,8 +165,12 @@ public class GUI extends JFrame {
 	 * Metodo que cambia la imagen de los labels correspondientes
 	 * en el tablero de la GUI, segun los bloques pasados por parametro.
 	 */
-	public void actualizarLabels() {
-		
+	public void actualizarLabels(Iterable<Bloque> bloquesActualizar) {
+		ImageIcon icono;
+		for(Bloque bloq : bloquesActualizar) {
+			icono = reEscalar(bloq.getDirImage());
+			matrizLabels[bloq.getPosX()][bloq.getPosY()].setIcon(icono);
+		}
 	}
 	
 	/**
@@ -196,11 +199,95 @@ public class GUI extends JFrame {
 	}
 	
 	/**
+	 * Metodo que devuelve un ImageIcon con los tamaños correspondientes
+	 * para las celdas.
+	 * @param dirImg Es el directorio en el que se encuantra la imagen.
+	 * @return Un ImageIcon con el tamaño de la celda.
+	 */
+	private ImageIcon reEscalar(String dirImg) {
+		ImageIcon img = new ImageIcon(GUI.class.getResource(dirImg));
+		Image imgResized = img.getImage().getScaledInstance(TAM_CELDA, TAM_CELDA, Image.SCALE_SMOOTH);
+		return new ImageIcon(imgResized);
+	}
+	
+	/**
 	 * Metodo que muestra la pantalla final del juego, la cual
 	 * incluye la puntuacion obtenida y el tiempo transcurrido
 	 */
 	public void mostrarPantallaFinal() {
-
+		JPanel endScreen = new JPanel();
+		contentPane.setVisible(false);
+		endScreen.setBackground(Color.BLACK);
+		
+		JLabel lblGameOver = new JLabel("GAME OVER");
+		lblGameOver.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGameOver.setForeground(Color.WHITE);
+		lblGameOver.setFont(new Font("Showcard Gothic", Font.PLAIN, 60));
+		
+		JLabel lblPuntuacion = new JLabel("PUNTUACION");
+		lblPuntuacion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPuntuacion.setForeground(Color.WHITE);
+		lblPuntuacion.setFont(new Font("Showcard Gothic", Font.PLAIN, 45));
+		
+		JLabel lblTiempo = new JLabel("TIEMPO");
+		lblTiempo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTiempo.setForeground(Color.WHITE);
+		lblTiempo.setFont(new Font("Showcard Gothic", Font.PLAIN, 45));
+		
+		JLabel lblConPuntuacionES = new JLabel(lblConPuntuacion.getText());
+		lblConPuntuacionES.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConPuntuacionES.setForeground(Color.WHITE);
+		lblConPuntuacionES.setFont(new Font("Showcard Gothic", Font.PLAIN, 45));
+		
+		JLabel lblConTiempoES = new JLabel(lblConTiempo.getText());
+		lblConTiempoES.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConTiempoES.setForeground(Color.WHITE);
+		lblConTiempoES.setFont(new Font("Showcard Gothic", Font.PLAIN, 45));
+		GroupLayout gl_endScreen = new GroupLayout(endScreen);
+		gl_endScreen.setHorizontalGroup(
+			gl_endScreen.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
+					.addGap(58)
+					.addGroup(gl_endScreen.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblGameOver, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 10, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblTiempo, GroupLayout.PREFERRED_SIZE, 359, GroupLayout.PREFERRED_SIZE)
+							.addGap(10))
+						.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 10, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblConTiempoES, GroupLayout.PREFERRED_SIZE, 359, GroupLayout.PREFERRED_SIZE)
+							.addGap(10))
+						.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 10, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblConPuntuacionES, GroupLayout.PREFERRED_SIZE, 359, GroupLayout.PREFERRED_SIZE)
+							.addGap(10))
+						.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 10, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblPuntuacion, GroupLayout.PREFERRED_SIZE, 359, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)))
+					.addGap(39))
+		);
+		gl_endScreen.setVerticalGroup(
+			gl_endScreen.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_endScreen.createSequentialGroup()
+					.addGap(44)
+					.addComponent(lblGameOver)
+					.addGap(62)
+					.addComponent(lblPuntuacion, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblConPuntuacionES, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+					.addGap(78)
+					.addComponent(lblTiempo, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblConTiempoES, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(102, Short.MAX_VALUE))
+		);
+		endScreen.setLayout(gl_endScreen);
+		
+		setContentPane(endScreen);
 	}
+	
+	
 
 }
