@@ -5,10 +5,10 @@ import java.util.*;
 public class Cuadrado extends Tetrimino{
 
 	public Cuadrado() {
-		pivote = new Bloque("/images/bloqueVacio.png");
-		A = new Bloque("/images/bloqueVacio.png");
-		B = new Bloque("/images/bloqueVacio.png");
-		C = new Bloque("/images/bloqueVacio.png");
+		pivote = new Bloque("/images/bloqueVacio.png",4,0);
+		A = new Bloque("/images/bloqueVacio.png",5,0);
+		B = new Bloque("/images/bloqueVacio.png",4,1);
+		C = new Bloque("/images/bloqueVacio.png",5,1);
 		misBloques.add(pivote);
 		misBloques.add(A);
 		misBloques.add(B);
