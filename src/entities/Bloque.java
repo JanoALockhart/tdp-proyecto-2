@@ -30,7 +30,7 @@ public class Bloque {
 	public Bloque(String img, int x, int y) {
 		posX=x;
 		posY=y;
-		ocupado=false;
+		ocupado=true;
 		dirImage=img;
 	}
 	
