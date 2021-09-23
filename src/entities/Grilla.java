@@ -1,18 +1,31 @@
 package entities;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Grilla {
 	
-	//protected Juego miJuego();
+	protected Juego miJuego;
 	protected Tetrimino miTetriminoActual;
 	protected Tetrimino miTetriminoSiguiente;
-	protected Bloque misBloques; 
+	protected Bloque misBloques[][]; 
 	
-	public Grilla() {
-		
+	public Grilla(Juego miJuego) {
+		misBloques = new Bloque[21][10];
+		for(int fila = 0; fila < 21; fila++) {
+			for(int col = 0; col < 10; col++) {
+				misBloques[fila][col] = new Bloque("/images/bloqueVacio.png",fila,col,false);				
+			}
+		}
+		this.miJuego = miJuego; 
 	}
 	
 	public void chequearFilas(Tetrimino tetri) {
 		
+	}
+	
+	public Bloque getBloque(int f, int c) {
+		return misBloques[f][c];
 	}
 	
 	/*
@@ -20,7 +33,17 @@ public class Grilla {
 	 * mueve todos los bloques del tetrimino hacia la izquierda.
 	 */
 	public void moverIzq() {
-		
+		boolean sePuede = true;
+		List<Bloque> bloquesIzquierdos;
+		bloquesIzquierdos = miTetriminoActual.getBLoquesMasIzq();
+		for (Bloque b : bloquesIzquierdos) {
+			if(misBloques[b.getPosX()-1][b.getPosY()].isOcupado()) {
+				sePuede = false;
+				break;
+			}
+		}
+		if(sePuede)
+			miTetriminoActual.moverIzquierda();
 	}
 	
 	/*
@@ -28,7 +51,17 @@ public class Grilla {
 	 * mueve todos los bloques del tetrimino hacia la derecha.
 	 */
 	public void moverDer() {
-		
+		boolean sePuede = true;
+		List<Bloque> bloquesDerechos;
+		bloquesDerechos = miTetriminoActual.getBLoquesMasDer();
+		for (Bloque b : bloquesDerechos) {
+			if(misBloques[b.getPosX()+1][b.getPosY()].isOcupado()) {
+				sePuede = false;
+				break;
+			}
+		}
+		if(sePuede)
+			miTetriminoActual.moverDerecha();
 	}
 	
 	/*
@@ -44,7 +77,19 @@ public class Grilla {
 	 * se bajan una posición en la grilla, caso contrario el tetrimino se solidifica. 
 	 */
 	public void bajarTetriminoActual() {
-		
+		boolean sePuede = true;
+		List<Bloque> bloquesDeAbajo;
+		bloquesDeAbajo = miTetriminoActual.getBLoquesMasDer();
+		for (Bloque b : bloquesDeAbajo) {
+			if(misBloques[b.getPosX()][b.getPosY()-1].isOcupado()) {
+				sePuede = false;
+				break;
+			}
+		}
+		//if(sePuede)
+			
+			
+			
 	}
 	
 	@SuppressWarnings("unused")
