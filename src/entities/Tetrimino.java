@@ -3,6 +3,8 @@ import java.util.*;
 
 
 public abstract class Tetrimino {
+	protected String img;
+	protected Grilla miGrilla;
 	protected Bloque pivote, A, B, C;
 	protected int angulo;
 	protected List<Bloque> misBloques; //TODO elegir lista o arreglo
@@ -45,7 +47,13 @@ public abstract class Tetrimino {
 	 */
 	public void moverDerecha() {
 		for(Bloque bloq : misBloques) {
-			bloq.setPosX(bloq.getPosX()+1);
+			bloq.desocupar();
+		}
+		for(Bloque bloq : misBloques) {
+			bloq = miGrilla.getBloque(bloq.getPosX()+1,bloq.getPosY());
+		}
+		for(Bloque bloq : misBloques) {
+			bloq.ocupar(img);
 		}
 	}
 	
@@ -54,7 +62,13 @@ public abstract class Tetrimino {
 	 */
 	public void moverIzquierda() {
 		for(Bloque bloq : misBloques) {
-			bloq.setPosX(bloq.getPosX()-1);
+			bloq.desocupar();
+		}
+		for(Bloque bloq : misBloques) {
+			bloq = miGrilla.getBloque(bloq.getPosX()-1,bloq.getPosY());
+		}
+		for(Bloque bloq : misBloques) {
+			bloq.ocupar(img);
 		}
 	}
 	
@@ -63,9 +77,22 @@ public abstract class Tetrimino {
 	 */
 	public void caer() {
 		for(Bloque bloq : misBloques) {
-			bloq.setPosY(bloq.getPosY()-1);
+			bloq.desocupar();
+		}
+		for(Bloque bloq : misBloques) {
+			bloq = miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()-1);
+		}
+		for(Bloque bloq : misBloques) {
+			bloq.ocupar(img);
 		}
 	}
 	
 
+	/**
+	 * -setear la imagen
+	 * -setear que esta ocupado
+	 * -
+	 */
+	
+	
 }

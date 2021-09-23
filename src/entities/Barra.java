@@ -4,18 +4,23 @@ import java.util.*;
 
 public class Barra extends Tetrimino {
 	
-	public Barra() {
-		pivote = new Bloque("/images/bloqueVacio.png",4,0);
-		A = new Bloque("/images/bloqueVacio.png",3,0);
-		B = new Bloque("/images/bloqueVacio.png",5,0);
-		C = new Bloque("/images/bloqueVacio.png",6,0);
+	public Barra(Grilla miGrilla) {
+		this.miGrilla = miGrilla;
+		pivote = miGrilla.getBloque(4, 0);
+		pivote.ocupar("/images/bloqueAzul.png");
+		A =  miGrilla.getBloque(3, 0);
+		pivote.ocupar("/images/bloqueAzul.png");
+		B =  miGrilla.getBloque(5, 0);
+		pivote.ocupar("/images/bloqueAzul.png");
+		C =  miGrilla.getBloque(6, 0);
+		pivote.ocupar("/images/bloqueAzul.png");
 		misBloques.add(pivote);
 		misBloques.add(A);
 		misBloques.add(B);
 		misBloques.add(C);
 		angulo = 0;
 	}
-
+	
 	@Override
 	public List<Bloque> getBloquesParaRotar() {
 		// TODO Auto-generated method stub
