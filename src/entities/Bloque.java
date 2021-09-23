@@ -12,7 +12,7 @@ public class Bloque {
 		
 	/**
 	 * Método constructor de la clase Bloque
-	 * @param img Posición en memoria de windows de la imagen del bloque
+	 * @param img Posición en el directorio de Windows de la imagen del bloque
 	 * @param x posición en el eje X
 	 * @param y posición en el eje Y
 	 * @param o si el bloque está ocupado
@@ -41,6 +41,31 @@ public class Bloque {
 	}
 	
 	/**
+	 * Ocupa un bloque y configura que la imagen del bloque sea img para representar en GUI.
+	 * @param img imagen que quiere ponerse al bloque
+	 */
+	public void ocupar(String img) {
+		ocupado=true;
+		dirImage=img;
+	}
+	
+	/**
+	 * Desocupa el bloque y configura que la imagen del bloque sea la de un bloque vacio para representar en GUI
+	 */
+	public void desocupar() {
+		ocupado=false;
+		dirImage="../images/bloqueVacio.png";
+	}
+	
+	/**
+	 * Configura que la imagen del bloque sea img.
+	 * @param img imagen que quiere ponerse al bloque
+	 */
+	public void setDirImagen(String img) {
+		dirImage=img;
+	}
+	
+	/**
 	 * Devuelve la posición del bloque en el eje Y de la grilla
 	 * @return posY posición en el eje Y
 	 */
@@ -57,7 +82,7 @@ public class Bloque {
 	}
 	
 	/**
-	 * Devuelve la dirección en memoria de Windows en que esta alojada la imagen
+	 * Devuelve la dirección en el directorio de Windows en que esta alojada la imagen
 	 * @return dirImage dirección en memoria de Windows
 	 */
 	public String getDirImage() {
@@ -71,5 +96,5 @@ public class Bloque {
 	 */
 	public boolean isOcupado() {
 		return ocupado;
-	}
+	}	
 }
