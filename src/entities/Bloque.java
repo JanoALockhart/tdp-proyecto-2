@@ -85,7 +85,7 @@ public class Bloque {
 	 * Devuelve la dirección en el directorio de Windows en que esta alojada la imagen
 	 * @return dirImage dirección en memoria de Windows
 	 */
-	public String getDirImage() {
+	public String getDirImagen() {
 		return dirImage;
 	}
 	
