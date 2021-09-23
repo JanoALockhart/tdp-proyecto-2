@@ -8,9 +8,10 @@ package entities;
  */
 public class Juego {
 	private int score;
+	private Grilla miGrilla;
 	private GUI interfazGrafica;
-	//private Grilla miGrilla;
-	//private Timer temporizador;
+	private Grilla miGrilla;
+	private Timer temporizador;
 	
 	//TODO ver que pasarle a la grilla, recibir gui?
 	/**
