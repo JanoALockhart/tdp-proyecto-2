@@ -9,37 +9,13 @@ public class Bloque {
 	private boolean ocupado;
 	
 	private String dirImage;
-	
+		
 	/**
 	 * Método constructor de la clase Bloque
 	 * @param img Posición en memoria de windows de la imagen del bloque
-	 */
-	public Bloque(String img) {
-		posX=0;
-		posY=0;
-		ocupado=false;
-		dirImage=img;
-	}
-	
-	/**
-	 * Método constructor de la clase Bloque cuando el juego aparece un tetrimino
-	 * @param img Posición en memoria de windows de la imagen del bloque
 	 * @param x posición en el eje X
 	 * @param y posición en el eje Y
-	 */
-	public Bloque(String img, int x, int y) {
-		posX=x;
-		posY=y;
-		ocupado=true;
-		dirImage=img;
-	}
-	
-	/**
-	 * Método constructor de la clase Bloque cuando se rota un tetrimino
-	 * @param img Posición en memoria de windows de la imagen del bloque
-	 * @param x posición en el eje X
-	 * @param y posición en el eje Y
-	 * @param ocupado si el bloque está ocupado
+	 * @param o si el bloque está ocupado
 	 */
 	public Bloque(String img, int x, int y, boolean o) {
 		posX=x;
