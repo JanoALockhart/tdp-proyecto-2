@@ -33,6 +33,20 @@ public class Bloque {
 		ocupado=false;
 		dirImage=img;
 	}
+	
+	/**
+	 * Método constructor de la clase Bloque cuando se rota un tetrimino
+	 * @param img Posición en memoria de windows de la imagen del bloque
+	 * @param x posición en el eje X
+	 * @param y posición en el eje Y
+	 * @param ocupado si el bloque está ocupado
+	 */
+	public Bloque(String img, int x, int y, boolean o) {
+		posX=x;
+		posY=y;
+		ocupado=o;
+		dirImage=img;
+	}
 
 	/**
 	 * Configura la posición del bloque en el eje X de la grilla
