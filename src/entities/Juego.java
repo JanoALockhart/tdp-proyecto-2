@@ -10,17 +10,20 @@ public class Juego {
 	private int score;
 	private Grilla miGrilla;
 	private GUI interfazGrafica;
-	private Grilla miGrilla;
 	private Timer temporizador;
 	
-	//TODO ver que pasarle a la grilla, recibir gui?
+	//constantes para el metodo sincronizado operarJuego
+	public static final int MOVER_ABAJO = 1;
+	public static final int MOVER_IZQUIERDA = 2;
+	public static final int MOVER_DERECHA = 3;
+	public static final int ROTAR = 4;
 	/**
 	 * Constructor clase juego
 	 */
-	public Juego() {
+	public Juego(GUI gui) {
 		temporizador = new Timer(this);
-		miGrilla = new Grilla();
-		//interfazGrafica = ?
+		miGrilla = new Grilla(this);
+		interfazGrafica = gui;
 	}
 	
 	/**
@@ -37,7 +40,7 @@ public class Juego {
 	 * que su tetrimino actual se mueva un bloque
 	 * hacia abajo
 	 */
-	public void hacerCaer() {
+	private void hacerCaer() {
 		miGrilla.bajarTetriminoActual();
 	}
 	
@@ -45,7 +48,7 @@ public class Juego {
 	 * Metodo que provoca que la grilla haga que su tetrimino
 	 * actual se mueva a la izquierda en un bloque
 	 */
-	public void avisarIzq() {
+	private void avisarIzq() {
 		miGrilla.moverIzq();
 	}
 	
@@ -53,7 +56,7 @@ public class Juego {
 	 * Metodo que provoca que la grilla haga que su
 	 * tetrimino actual se mueva a la derecha en un boque
 	 */
-	public void avisarDer() {
+	private void avisarDer() {
 		miGrilla.moverDer();
 	}
 	
@@ -61,7 +64,7 @@ public class Juego {
 	 * Metodo que provoca que la grilla haga que su tetrimino
 	 * actual rote
 	 */
-	public void avisarRotar() {
+	private void avisarRotar() {
 		miGrilla.moverRotar();
 	}
 	
@@ -81,7 +84,16 @@ public class Juego {
 	 * los labels mostrados por pantalla
 	 */
 	public void actualizarGUI() {
-		interfazGrafica.actualizarLabels();
+		//interfazGrafica.actualizarLabels();
+	}
+	
+	public synchronized void operarJuego(int operacion) {
+		switch(operacion) {
+			case MOVER_ABAJO: {hacerCaer(); break;}
+			case MOVER_IZQUIERDA: {avisarIzq(); break;}
+			case MOVER_DERECHA: {avisarDer(); break;}
+			case ROTAR: {avisarRotar(); break;}
+		}
 	}
 	
 	/**

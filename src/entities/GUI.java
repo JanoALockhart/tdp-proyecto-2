@@ -122,7 +122,7 @@ public class GUI extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 		
 		//Crear Juego
-		juego = new Juego();
+		juego = new Juego(this);
 		
 		matrizLabels = new JLabel[CANT_FILAS][CANT_COL];
 		//Ajustar tamaño magen bloque vacio al tamaño de la celda
@@ -140,19 +140,19 @@ public class GUI extends JFrame {
 			}
 		}	
 		
-		//Agregar oyente
+		//Agregar oyente para teclas derecha, izquierda y rotar
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent teclaApretada) {
 				switch (teclaApretada.getKeyCode()) {
 					case KeyEvent.VK_D:{
-						juego.avisarDer();
+						juego.operarJuego(Juego.MOVER_DERECHA);
 					}
 					case KeyEvent.VK_A:{
-						juego.avisarIzq();
+						juego.operarJuego(Juego.MOVER_IZQUIERDA);
 					}
 					case KeyEvent.VK_SPACE:{
-						juego.avisarRotar();
+						juego.operarJuego(Juego.ROTAR);
 					}
 				}
 			}
@@ -167,7 +167,7 @@ public class GUI extends JFrame {
 	public void actualizarLabels(Iterable<Bloque> bloquesActualizar) {
 		ImageIcon icono;
 		for(Bloque bloq : bloquesActualizar) {
-			icono = reEscalar(bloq.getDirImage());
+			icono = reEscalar(bloq.getDirImagen());
 			matrizLabels[bloq.getPosX()][bloq.getPosY()].setIcon(icono);
 		}
 	}
