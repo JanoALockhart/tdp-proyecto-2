@@ -18,7 +18,9 @@ public class Grilla {
 				misBloques[fila][col] = new Bloque("/images/bloqueVacio.png",fila,col,false);				
 			}
 		}
-		this.miJuego = miJuego; 
+		this.miJuego = miJuego;
+		miTetriminoActual = miFacbrica.generarNuevoTetrimino();
+		miTetriminoSiguiente = miFacbrica.generarNuevoTetrimino();
 	}
 	
 	public Bloque getBloque(int f, int c) {
@@ -30,17 +32,26 @@ public class Grilla {
 	 * mueve todos los bloques del tetrimino hacia la izquierda.
 	 */
 	public void moverIzq() {
+		List<Bloque> guardado = new LinkedList<Bloque>();
 		boolean sePuede = true;
 		List<Bloque> bloquesIzquierdos;
 		bloquesIzquierdos = miTetriminoActual.getBLoquesMasIzq();
 		for (Bloque b : bloquesIzquierdos) {
-			if(misBloques[b.getPosX()-1][b.getPosY()].isOcupado()) {
+			if(b.getPosX() == 0) {
 				sePuede = false;
 				break;
 			}
+			guardado.add(b);
+			if(misBloques[b.getPosY()][b.getPosX()-1].isOcupado()) {
+				sePuede = false;
+				break;
+			}
+			guardado.add(misBloques[b.getPosY()][b.getPosX()-1]);
 		}
-		if(sePuede)
+		if(sePuede) {
 			miTetriminoActual.moverIzquierda();
+			miJuego.actualizarGUI(guardado);
+		}
 	}
 	
 	/**
@@ -52,7 +63,7 @@ public class Grilla {
 		List<Bloque> bloquesDerechos;
 		bloquesDerechos = miTetriminoActual.getBLoquesMasDer();
 		for (Bloque b : bloquesDerechos) {
-			if(misBloques[b.getPosX()+1][b.getPosY()].isOcupado()) {
+			if(misBloques[b.getPosY()][b.getPosX()+1].isOcupado()) {
 				sePuede = false;
 				break;
 			}
@@ -183,8 +194,8 @@ public class Grilla {
 		for(int fila = filaRota; filaRota > 1; filaRota--) {
 			for(int col = 0; col < misBloques[0].length; col++) {
 				if(misBloques[fila--][col].isOcupado()) {
-					misBloques[fila][col].isOcupado();
-					misBloques[fila][col].setDirImagen(misBloques[fila--][col].getDirImagen());
+					misBloques[fila][col].ocupar(misBloques[fila--][col].getDirImagen());;
+					misBloques[fila--][col].desocupar();
 					listaDeGuardado.add(misBloques[fila][col]);
 				}
 			}
