@@ -24,8 +24,26 @@ public class Barra extends Tetrimino {
 	
 	@Override
 	public List<Bloque> getBloquesParaRotar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Bloque> lista = new LinkedList<Bloque>();
+		switch(angulo) {
+			case 0 : 	lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));//A
+						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));//B
+						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+2));//C
+						break;
+			case 90:	lista.add(miGrilla.getBloque(pivote.getPosX()-2, pivote.getPosY()));//B
+						lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()));//C
+						lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));//A
+						break;
+			case 180:	lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));//A
+						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));//C
+						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-2));//B
+						break;
+			case 270:	lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()));//A
+						lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));//B
+						lista.add(miGrilla.getBloque(pivote.getPosX()+2, pivote.getPosY()));//C
+						break;
+		}
+		return lista;
 	}
 
 	@Override
@@ -108,36 +126,36 @@ public class Barra extends Tetrimino {
 						C.ocupar(img);
 						angulo = 90;
 						break;
-			case 0 :	A.setPosX(pivote.getPosX());
-						A.setPosY(pivote.getPosY()-1);
-						B.setPosX(pivote.getPosX());
-						B.setPosY(pivote.getPosY()+1);
-						C.setPosX(pivote.getPosX());
-						C.setPosY(pivote.getPosY()+2);
-						angulo = 90;
-						break;
-			case 90:	A.setPosX(pivote.getPosX()+1);
-						A.setPosY(pivote.getPosY());
-						B.setPosX(pivote.getPosX()-2);
-						B.setPosY(pivote.getPosY());
-						C.setPosX(pivote.getPosX()-1);
-						C.setPosY(pivote.getPosY());
+			case 90:	A.desocupar();
+						A = miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY());
+						A.ocupar(img);
+						B.desocupar();
+						B = miGrilla.getBloque(pivote.getPosX()-2, pivote.getPosY());
+						C.desocupar();
+						C = miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY());
+						C.ocupar(img);
 						angulo = 180;
 						break;
-			case 180:	A.setPosX(pivote.getPosX());
-						A.setPosY(pivote.getPosY()+1);
-						B.setPosX(pivote.getPosX());
-						B.setPosY(pivote.getPosY()-2);
-						C.setPosX(pivote.getPosX());
-						C.setPosY(pivote.getPosY()-1);
+			case 180:	A.desocupar();
+						A = miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1);
+						A.ocupar(img);
+						B.desocupar();
+						B = miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-2);
+						B.ocupar(img);
+						C.desocupar();
+						C = miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1);
+						C.ocupar(img);
 						angulo = 270;
 						break;
-			case 270:	A.setPosX(pivote.getPosX()-1);
-						A.setPosY(pivote.getPosY());
-						B.setPosX(pivote.getPosX()+1);
-						B.setPosY(pivote.getPosY());
-						C.setPosX(pivote.getPosX()+2);
-						C.setPosY(pivote.getPosY());
+			case 270:	A.desocupar();
+						A = miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY());
+						A.ocupar(img);
+						B.desocupar();
+						B = miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY());
+						B.ocupar(img);
+						C.desocupar();
+						C = miGrilla.getBloque(pivote.getPosX()+2, pivote.getPosY());
+						C.ocupar(img);
 						angulo = 0;
 						break;
 			

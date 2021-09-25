@@ -87,7 +87,12 @@ public abstract class Tetrimino {
 		}
 	}
 	
-
+	protected Bloque moverBloqueAPos(Bloque bloque, int x, int y) {
+		bloque.desocupar();
+		bloque = miGrilla.getBloque(x, y);
+		bloque.ocupar(img);
+		return bloque;
+	}
 	/**
 	 * -setear la imagen
 	 * -setear que esta ocupado
