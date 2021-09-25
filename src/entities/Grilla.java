@@ -184,14 +184,13 @@ public class Grilla {
 			for(int col = 0; col < misBloques[0].length; col++) {
 				if(misBloques[fila--][col].isOcupado()) {
 					misBloques[fila][col].isOcupado();
-					misBloques[fila][col].setDirImagen(misBloques[fila--][col].getDirImage());
+					misBloques[fila][col].setDirImagen(misBloques[fila--][col].getDirImagen());
 					listaDeGuardado.add(misBloques[fila][col]);
 				}
 			}
 		}		
 	}
 	
-	@SuppressWarnings("unused")
 	/*
 	 *Verifica que las posiciones que ocupara el nuevo tetrimino
 	 *esten libres, si no estan libres, grilla llama a Juego.perder()
