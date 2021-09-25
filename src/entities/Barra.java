@@ -5,15 +5,16 @@ import java.util.*;
 public class Barra extends Tetrimino {
 	
 	public Barra(Grilla miGrilla) {
+		img = "/images/bloqueAzul.png";
 		this.miGrilla = miGrilla;
 		pivote = miGrilla.getBloque(4, 0);
-		pivote.ocupar("/images/bloqueAzul.png");
+		pivote.ocupar(img);
 		A =  miGrilla.getBloque(3, 0);
-		pivote.ocupar("/images/bloqueAzul.png");
+		A.ocupar(img);
 		B =  miGrilla.getBloque(5, 0);
-		pivote.ocupar("/images/bloqueAzul.png");
+		B.ocupar(img);
 		C =  miGrilla.getBloque(6, 0);
-		pivote.ocupar("/images/bloqueAzul.png");
+		B.ocupar(img);
 		misBloques.add(pivote);
 		misBloques.add(A);
 		misBloques.add(B);
@@ -96,6 +97,17 @@ public class Barra extends Tetrimino {
 	@Override
 	public void rotar() {
 		switch(angulo) {
+			case 0 :	A.desocupar();
+						A = miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1);
+						A.ocupar(img);
+						B.desocupar();
+						B = miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1);
+						B.ocupar(img);
+						C.desocupar();
+						C = miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+2);
+						C.ocupar(img);
+						angulo = 90;
+						break;
 			case 0 :	A.setPosX(pivote.getPosX());
 						A.setPosY(pivote.getPosY()-1);
 						B.setPosX(pivote.getPosX());
