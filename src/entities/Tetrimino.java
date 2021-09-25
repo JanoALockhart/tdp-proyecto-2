@@ -87,17 +87,19 @@ public abstract class Tetrimino {
 		}
 	}
 	
+	/**
+	 * Metodo Protegido, factoriza las operaciones de desocupar, asignar pos y ocupar.
+	 * @param bloque Boque que va a ser afectado
+	 * @param x Posicion en X que va a ocupar
+	 * @param y Posicion en Y que va a ocupar
+	 * @return Bloque que va a ser afectado
+	 */
 	protected Bloque moverBloqueAPos(Bloque bloque, int x, int y) {
 		bloque.desocupar();
 		bloque = miGrilla.getBloque(x, y);
 		bloque.ocupar(img);
 		return bloque;
 	}
-	/**
-	 * -setear la imagen
-	 * -setear que esta ocupado
-	 * -
-	 */
 	
 	
 }

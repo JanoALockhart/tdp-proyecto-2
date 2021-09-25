@@ -5,15 +5,16 @@ import java.util.*;
 public class Cuadrado extends Tetrimino{
 
 	public Cuadrado(Grilla miGrilla) {
+		img = "/images/bloqueAmarillo.png";
 		this.miGrilla = miGrilla;
 		pivote = miGrilla.getBloque(4,0);
-		pivote.ocupar("/images/bloqueAmarillo.png");
+		pivote.ocupar(img);
 		A = miGrilla.getBloque(5,0);
-		A.ocupar("/images/bloqueAmarillo.png");
+		A.ocupar(img);
 		B = miGrilla.getBloque(4,1);
-		B.ocupar("/images/bloqueAmarillo.png");
+		B.ocupar(img);
 		C = miGrilla.getBloque(5,1);
-		C.ocupar("/images/bloqueAmarillo.png");
+		C.ocupar(img);
 		misBloques.add(pivote);
 		misBloques.add(A);
 		misBloques.add(B);
