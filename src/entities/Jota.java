@@ -5,6 +5,23 @@ import java.util.List;
 
 public class Jota extends Tetrimino {
 
+	public Jota(Grilla miGrilla) {
+		this.miGrilla = miGrilla;
+		pivote = miGrilla.getBloque(3, 1);
+		pivote.ocupar("/images/bloqueVerde.png");
+		A =  miGrilla.getBloque(3, 0);
+		pivote.ocupar("/images/bloqueVerde.png");
+		B =  miGrilla.getBloque(3, 2);
+		pivote.ocupar("/images/bloqueVerde.png");
+		C =  miGrilla.getBloque(2, 2);
+		pivote.ocupar("/images/bloqueVerde.png");
+		misBloques.add(pivote);
+		misBloques.add(A);
+		misBloques.add(B);
+		misBloques.add(C);
+		angulo = 0;
+	}
+	
 	@Override
 	public List<Bloque> getBloquesParaRotar() {
 		List<Bloque> lista = new LinkedList<Bloque>();
