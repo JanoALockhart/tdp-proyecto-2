@@ -42,23 +42,23 @@ public class FabricaTetriminos {
 				break;
 			}
 			case 2:{
-				//tetri = new Jota(miGrilla);
+				tetri = new Jota(miGrilla);
 				break;
 			}
 			case 3:{
-				//tetri = new Ele(miGrilla); 
+				tetri = new Ele(miGrilla); 
 				break;
 			}
 			case 4:{
-				//tetri = new Te(miGrilla);
+				tetri = new Te(miGrilla);
 				break;
 			}
 			case 5:{
-				//tetri = new Zeta(miGrilla);
+				tetri = new Zeta(miGrilla);
 				break;
 			}
 			case 6:{
-				//tetri = new Ese(miGrilla);
+				tetri = new Ese(miGrilla);
 				break;
 			}
 			

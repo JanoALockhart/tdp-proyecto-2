@@ -80,11 +80,11 @@ public class Juego {
 	}
 	
 	/**
-	 * Metodo que avisa a la gui para actualizar
-	 * los labels mostrados por pantalla
+	 * Metodo que envia a la gui los bloques que fueron modificados
+	 * para que la gui cambie los correspondientes labels.
 	 */
-	public void actualizarGUI() {
-		//interfazGrafica.actualizarLabels();
+	public void actualizarGUI(Iterable<Bloque> bloquesModificados) {
+		interfazGrafica.actualizarLabels(bloquesModificados);
 	}
 	
 	public synchronized void operarJuego(int operacion) {
