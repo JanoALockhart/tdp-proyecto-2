@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Ese extends Tetrimino{
@@ -23,32 +24,118 @@ public class Ese extends Tetrimino{
 
 	@Override
 	public List<Bloque> getBloquesParaRotar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Bloque> lista = new LinkedList<Bloque>();
+		switch(angulo) {
+			case 0 : 	lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()+1));
+						lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));
+						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));
+						break;
+			case 90:	lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));
+						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));
+						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));
+						break;
+			case 180:	lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()-1));
+						lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()));
+						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));
+						break;
+			case 270:	lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()-1));
+						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));
+						lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()));
+						break;
+		}
+		return lista;
 	}
 
 	@Override
 	public List<Bloque> getBLoquesMasDer() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Bloque> lista = new LinkedList<Bloque>();
+		switch(angulo) {
+			case 0 :	lista.add(B);
+						lista.add(pivote);
+					  	break;
+			case 90:	lista.add(A);
+						lista.add(B);
+						lista.add(C);	
+						break;
+			case 180:	lista.add(A);
+						lista.add(C);
+						break;
+			case 270:   lista.add(A);
+						lista.add(B);
+						lista.add(pivote);
+						break;
+		}
+		return lista;
 	}
 
 	@Override
 	public List<Bloque> getBLoquesMasIzq() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Bloque> lista = new LinkedList<Bloque>();
+		switch(angulo) {
+			case 0 :	lista.add(A);
+						lista.add(C);
+					  	break;
+			case 90:	lista.add(A);
+						lista.add(B);
+						lista.add(pivote);
+						break;
+			case 180:	lista.add(B);
+						lista.add(pivote);
+						break;
+			case 270:   lista.add(A);
+						lista.add(B);
+						lista.add(C);	
+						break;
+		}
+		return lista;
 	}
 
 	@Override
 	public List<Bloque> getBLoquesAbajo() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Bloque> lista = new LinkedList<Bloque>();
+		switch(angulo) {
+			case 0 :	lista.add(A);
+						lista.add(pivote);
+						lista.add(B);
+					  	break;
+			case 90:	lista.add(B);
+						lista.add(pivote);
+						break;
+			case 180:	lista.add(A);
+						lista.add(B);
+						lista.add(C);
+						break;
+			case 270:   lista.add(A);
+						lista.add(C);	
+						break;
+		}
+		return lista;
 	}
 
 	@Override
 	public void rotar() {
-		// TODO Auto-generated method stub
-		
+		switch(angulo) {
+			case 0 :    B = moverBloqueAPos(B, pivote.getPosX()+1, pivote.getPosY()+1);
+						C = moverBloqueAPos(C, pivote.getPosX()+1, pivote.getPosY());
+						A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()+1);
+						angulo = 90;
+						break;
+			case 90:	B = moverBloqueAPos(B, pivote.getPosX()+1, pivote.getPosY());
+						C = moverBloqueAPos(C, pivote.getPosX(), pivote.getPosY()+1);
+						A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()+1);
+						angulo = 180;
+						break;
+			case 180:	B = moverBloqueAPos(B, pivote.getPosX()-1, pivote.getPosY()-1);
+						C = moverBloqueAPos(C, pivote.getPosX()-1, pivote.getPosY());
+						A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()-1);
+						angulo = 270;
+						break;
+			case 270:	B = moverBloqueAPos(B, pivote.getPosX()+1, pivote.getPosY()-1);
+						C = moverBloqueAPos(C, pivote.getPosX(), pivote.getPosY()-1);
+						A = moverBloqueAPos(A, pivote.getPosX()-1, pivote.getPosY());
+						angulo = 0;
+						break;			
+		}
 	}
 	
 }
