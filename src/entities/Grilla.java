@@ -8,7 +8,8 @@ public class Grilla {
 	protected Juego miJuego;
 	protected Tetrimino miTetriminoActual;
 	protected Tetrimino miTetriminoSiguiente;
-	protected Bloque misBloques[][]; 
+	protected Bloque misBloques[][];
+	protected FabricaTetriminos miFacbrica;
 	
 	public Grilla(Juego miJuego) {
 		misBloques = new Bloque[21][10];
@@ -20,15 +21,11 @@ public class Grilla {
 		this.miJuego = miJuego; 
 	}
 	
-	public void chequearFilas(Tetrimino tetri) {
-		
-	}
-	
 	public Bloque getBloque(int f, int c) {
 		return misBloques[f][c];
 	}
 	
-	/*
+	/**
 	 * Primero verifica que el tetrimino se pueda mover para la izquierda,de ser asi
 	 * mueve todos los bloques del tetrimino hacia la izquierda.
 	 */
@@ -46,7 +43,7 @@ public class Grilla {
 			miTetriminoActual.moverIzquierda();
 	}
 	
-	/*
+	/**
 	 * Primero verifica que el tetrimino se pueda mover para la derecha, de ser asi
 	 * mueve todos los bloques del tetrimino hacia la derecha.
 	 */
@@ -64,17 +61,27 @@ public class Grilla {
 			miTetriminoActual.moverDerecha();
 	}
 	
-	/*
+	/**
 	 * Primero verifica que cada bloque del tetrimino se pueda mover a la ubicación
 	 * que le corresponde, de ser así el tetrimino rota.
 	 */
 	public void moverRotar() {
-		
+		boolean sePuede = true;
+		List<Bloque> bloquesRotar;
+		bloquesRotar = miTetriminoActual.getBloquesParaRotar();
+		for (Bloque b : bloquesRotar) {
+			if(misBloques[b.getPosX()+1][b.getPosY()].isOcupado()) {
+				sePuede = false;
+				break;
+			}
+		}
+		if(sePuede)
+			miTetriminoActual.rotar();
 	}
 	
-	/*
+	/**
 	 * Verifica si el tetriminoactual puede caer, de ser asi todos los bloques del tetrimino
-	 * se bajan una posición en la grilla, caso contrario el tetrimino se solidifica. 
+	 * se bajan una posición en la grilla, caso contrario el tetrimino se solidifica.
 	 */
 	public void bajarTetriminoActual() {
 		boolean sePuede = true;
@@ -86,33 +93,102 @@ public class Grilla {
 				break;
 			}
 		}
-		//if(sePuede)
+		if(sePuede) {
+			miTetriminoActual.caer();
+		}
+		else {
+			solidificarTetrimino();
+			VerificarLineas(miTetriminoActual);
+		}
 			
 			
 			
 	}
 	
-	@SuppressWarnings("unused")
+	/**
+	 * Este método se encarga de destruir el tetrimino actual,
+	 * y solidificarlo con el resto de los bloques.
+	 */	
 	private void solidificarTetrimino() {
-		
+		generarNuevoTetrimino(misBloques.length);
+		miTetriminoActual = miTetriminoSiguiente;
+		miTetriminoSiguiente = miFacbrica.generarNuevoTetrimino();		
 	}
 	
-	/*
-	 * Esto fue modificado respecto al diagrama 
+	/**
+	 * Este método se encarga de ir verificando si la fila de cada bloque
+	 * que conforma el tetrimino se puede romper
+	 * @param tetri: es el tetrimino actual 
 	 */
-	@SuppressWarnings("unused")
-	private boolean VerificarLineas(Tetrimino tetri) {
-		return false;
-	}
-	
-	@SuppressWarnings("unused")
-	private void  romperLineas(int filaAbajo, int cantfilas) {
+	private void VerificarLineas(Tetrimino tetri) {
+		boolean ocupado = true;
+		for(int col = 0; col < misBloques[0].length; col++) {
+			if(!misBloques[tetri.A.getPosY()][col].isOcupado()) {
+				ocupado = false;
+				break;
+			}
+		}
+		if(ocupado)
+			romperLineas(tetri.A.getPosY());
+		ocupado = true;
+		
+		for(int col = 0; col < misBloques[0].length; col++) {
+			if(!misBloques[tetri.B.getPosY()][col].isOcupado()) {
+				ocupado = false;
+				break;
+			}
+		}
+		if(ocupado)
+			romperLineas(tetri.B.getPosY());
+		ocupado = true;
+		
+		for(int col = 0; col < misBloques[0].length; col++) {
+			if(!misBloques[tetri.C.getPosY()][col].isOcupado()) {
+				ocupado = false;
+				break;
+			}
+		}
+		if(ocupado)
+			romperLineas(tetri.C.getPosY());
+		ocupado = true;
+		
+		for(int col = 0; col < misBloques[0].length; col++) {
+			if(!misBloques[tetri.pivote.getPosY()][col].isOcupado()) {
+				ocupado = false;
+				break;
+			}
+		}
+		if(ocupado)
+			romperLineas(tetri.pivote.getPosY());		
 		
 	}
-	
-	@SuppressWarnings("unused")
-	private void bajarLineas(int filaArriba , int cantFilas) {
-		
+	/**
+	 * Este método se encarga de romper toda una fila,
+	 * osea que recorre todos lo bloques de una fila y los pone en desocupados.
+	 * @param fila: es la fila que tiene que romper
+	 */
+	private void  romperLineas(int fila) {
+		for(int col = 0; col < misBloques[0].length; col++) {
+			misBloques[fila][col].desocupar();
+		}
+		bajarLineas(fila);
+	}
+	/**
+	 * Este método se encarga de ir bajando las filas, 
+	 * una vez que se rompe la fila que le pasan por parámetro.
+	 * @param filaRota: es la fila que se acaba de romper.
+	 */
+	private void bajarLineas(int filaRota) {
+		List<Bloque> listaDeGuardado = new LinkedList<Bloque>();		
+		for(int fila = filaRota; filaRota > 1; filaRota--) {
+			for(int col = 0; col < misBloques[0].length; col++) {
+				if(misBloques[fila--][col].isOcupado()) {
+					misBloques[fila][col].isOcupado();
+					misBloques[fila][col].setDirImagen(misBloques[fila--][col].getDirImage());
+					listaDeGuardado.add(misBloques[fila][col]);
+				}
+			}
+		}		
 	}
 	
 	@SuppressWarnings("unused")
@@ -121,6 +197,11 @@ public class Grilla {
 	 *esten libres, si no estan libres, grilla llama a Juego.perder()
 	 */
 	private void generarNuevoTetrimino(int num) {
-		
+		for(int col = 0; col < misBloques[0].length; col++) {
+			if(misBloques[num][col].isOcupado()) {
+				miJuego.perder();
+				break;
+			}
+		}
 	}
 }
