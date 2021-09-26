@@ -22,16 +22,25 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class GUI extends JFrame {
-
-	private JPanel contentPane;
+	
 	private Juego juego;
+	
+	private JPanel contentPane;
+	
+	private JPanel tableroDeJuego;
+	private JPanel tableroTetriSiguiente;
+	
 	private JLabel[][] matrizLabels;
+	private JLabel[][] matrizTetriSig;
 	private JLabel lblConTiempo;
 	private JLabel lblConPuntuacion;
 	
 	private static final int CANT_FILAS = 21;
 	private static final int CANT_COL = 10;
 	private static final int TAM_CELDA = 30;
+	
+	private static final int FILAS_TETRISIG = 3;
+	private static final int COL_TETRISIG = 6;
 	
 	
 	/**
@@ -61,84 +70,17 @@ public class GUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.BLACK));
-		
-		JLabel lblTiempo = new JLabel("TIEMPO");
-		lblTiempo.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
-		
-		lblConTiempo = new JLabel("00:00");
-		lblConTiempo.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
-		
-		JLabel lblPuntuacion = new JLabel("PUNTUACION\r\n");
-		lblPuntuacion.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
-		
-		lblConPuntuacion = new JLabel("0000000");
-		lblConPuntuacion.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
-		
-		JLabel lblSiguiente = new JLabel("SIGUIENTE");
-		lblSiguiente.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
-		
-		JLabel lblConSiguiente = new JLabel("");
-		lblConSiguiente.setBorder(new LineBorder(Color.BLACK));
-		lblConSiguiente.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblTiempo, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-						.addComponent(lblConTiempo, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPuntuacion, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblConPuntuacion, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSiguiente, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblConSiguiente, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE))
-					.addGap(7))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblTiempo)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblConTiempo, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-							.addGap(43)
-							.addComponent(lblPuntuacion, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(lblConPuntuacion, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-							.addGap(57)
-							.addComponent(lblSiguiente, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(lblConSiguiente, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE))
-					.addGap(13))
-		);
-		panel.setLayout(new GridLayout(CANT_FILAS, CANT_COL, 0, 0));
-		contentPane.setLayout(gl_contentPane);
+		GroupLayout elementos = colocarElementosGraficos();
+				
+		tableroDeJuego.setLayout(new GridLayout(CANT_FILAS, CANT_COL, 0, 0));
+		tableroTetriSiguiente.setLayout(new GridLayout(FILAS_TETRISIG, COL_TETRISIG, 0, 0));
+		contentPane.setLayout(elementos);
 		
 		//Crear Juego
-		juego = new Juego(this);
+		//juego = new Juego(this);
 		
-		matrizLabels = new JLabel[CANT_FILAS][CANT_COL];
-		//Ajustar tamaño magen bloque vacio al tamaño de la celda
-		ImageIcon img = reEscalar("/images/bloqueVacio.png");
-		JLabel celda;
-		
-		//Inicializar los labels con la imagen y agregarlos a la matriz y al panel grafico
-		for(int fila=0; fila<CANT_FILAS; fila++) {
-			for(int col=0; col<CANT_COL; col++) {
-				celda = new JLabel();
-				celda.setSize(new Dimension(TAM_CELDA,TAM_CELDA));
-				celda.setIcon(img);
-				matrizLabels[fila][col]=celda;
-				panel.add(celda);
-			}
-		}	
+		inicializarCeldasTableroJuego();
+		inicializarCeldasTableroTetriSiguiente();
 		
 		//Agregar oyente para teclas derecha, izquierda y rotar
 		addKeyListener(new KeyAdapter() {
@@ -287,6 +229,112 @@ public class GUI extends JFrame {
 		setContentPane(endScreen);
 	}
 	
+	/**
+	 * Metodo que crea el tablero en el cual estara el tetrimino
+	 * actual y los bloques solidificados, coloca los labels
+	 * y el contenedor para mostrar el tetrimino siguientes
+	 */
+	private GroupLayout colocarElementosGraficos() {
+		tableroDeJuego = new JPanel();
+		tableroDeJuego.setBorder(new LineBorder(Color.BLACK));
+		
+		System.out.println(""+tableroDeJuego!=null);
+		
+		JLabel lblTiempo = new JLabel("TIEMPO");
+		lblTiempo.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		
+		lblConTiempo = new JLabel("00:00");
+		lblConTiempo.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		
+		JLabel lblPuntuacion = new JLabel("PUNTUACION\r\n");
+		lblPuntuacion.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		
+		lblConPuntuacion = new JLabel("0000000");
+		lblConPuntuacion.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		
+		JLabel lblSiguiente = new JLabel("SIGUIENTE");
+		lblSiguiente.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		
+		tableroTetriSiguiente = new JPanel();
+		
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(tableroDeJuego, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblTiempo, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+								.addComponent(lblConTiempo, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPuntuacion, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblConPuntuacion, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblSiguiente, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE))
+							.addGap(7))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(tableroTetriSiguiente, GroupLayout.PREFERRED_SIZE, COL_TETRISIG*TAM_CELDA, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblTiempo)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblConTiempo, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+							.addGap(43)
+							.addComponent(lblPuntuacion, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(lblConPuntuacion, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+							.addGap(57)
+							.addComponent(lblSiguiente, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tableroTetriSiguiente, GroupLayout.PREFERRED_SIZE, FILAS_TETRISIG*TAM_CELDA, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tableroDeJuego, GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE))
+					.addGap(13))
+		);
+		return gl_contentPane;
+	}
 	
-
+	private void inicializarCeldasTableroJuego() {
+		matrizLabels = new JLabel[CANT_FILAS][CANT_COL];
+		//Ajustar tamaño magen bloque vacio al tamaño de la celda
+		ImageIcon img = reEscalar("/images/bloqueVacio.png");
+		JLabel celda;
+		
+		//Inicializar los labels con la imagen y agregarlos a la matriz y al panel grafico
+		for(int fila=0; fila<CANT_FILAS; fila++) {
+			for(int col=0; col<CANT_COL; col++) {
+				celda = new JLabel();
+				celda.setSize(new Dimension(TAM_CELDA,TAM_CELDA));
+				celda.setIcon(img);
+				matrizLabels[fila][col]=celda;
+				tableroDeJuego.add(celda);
+			}
+		}	
+	}
+	
+	private void inicializarCeldasTableroTetriSiguiente() {
+		matrizTetriSig = new JLabel[FILAS_TETRISIG][COL_TETRISIG];
+		
+		ImageIcon img = reEscalar("/images/bloqueVacio.png");
+		JLabel celda;
+		
+		//Inicializar los labels con la imagen y agregarlos a la matriz y al panel grafico
+		for(int fila=0; fila<FILAS_TETRISIG; fila++) {
+			for(int col=0; col<COL_TETRISIG; col++) {
+				celda = new JLabel();
+				celda.setSize(new Dimension(TAM_CELDA,TAM_CELDA));
+				celda.setIcon(img);
+				matrizLabels[fila][col]=celda;
+				tableroTetriSiguiente.add(celda);
+			}
+		}
+	}
+	
+	
 }
