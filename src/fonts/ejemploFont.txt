@@ -1,0 +1,12 @@
+InputStream is = testFont.class.getResourceAsStream("../fonts/Early GameBoy.ttf");
+Font font = null;
+try {
+	font = Font.createFont(Font.TRUETYPE_FONT, is);
+} catch (FontFormatException | IOException e) {
+	e.printStackTrace();
+}
+			
+JLabel lblNewLabel = new JLabel("New label");
+	
+Font sizedFont = font.deriveFont(18f);
+lblNewLabel.setFont(sizedFont);
