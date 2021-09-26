@@ -102,7 +102,11 @@ public class Te extends Tetrimino {
 	}
 
 	@Override
-	public void rotar() {
+	public Iterable<Bloque> rotar() {
+		List<Bloque> listaAnteriores=new LinkedList<Bloque>();
+		for(Bloque bloq : getBloquesTetrimino()) {
+			listaAnteriores.add(miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()));
+		}
 		switch(angulo) {
 		case 0 :	C = moverBloqueAPos(C, pivote.getPosX(), pivote.getPosY()-1);
 					angulo = 90;
@@ -119,7 +123,8 @@ public class Te extends Tetrimino {
 					angulo = 0;
 					break;
 		
-	}
+		}
+		return listaAnteriores;
 	}
 
 }

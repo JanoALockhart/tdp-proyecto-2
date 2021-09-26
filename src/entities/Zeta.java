@@ -177,7 +177,11 @@ public class Zeta extends Tetrimino{
 	 * Metodo que cambia las referencias de los atributos de 
 	 * tetrimino para que rote. De
 	 */
-	public void rotar() {
+	public Iterable<Bloque> rotar() {
+		List<Bloque> listaAnteriores=new LinkedList<Bloque>();
+		for(Bloque bloq : getBloquesTetrimino()) {
+			listaAnteriores.add(miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()));
+		}
 		switch(angulo) {
 			case 0:{
 				A = moverBloqueAPos(A, pivote.getPosX()-1, pivote.getPosY());
@@ -204,5 +208,6 @@ public class Zeta extends Tetrimino{
 				break;
 			}
 		}
+		return listaAnteriores;
 	}
 }

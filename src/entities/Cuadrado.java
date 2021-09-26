@@ -49,8 +49,10 @@ public class Cuadrado extends Tetrimino{
 	}
 
 	@Override
-	public void rotar() {
+	public Iterable<Bloque> rotar() {
 		//El cuadrado no rota xd
+		List<Bloque> listaAnteriores=new LinkedList<Bloque>();
+		return listaAnteriores;
 	}
 
 }

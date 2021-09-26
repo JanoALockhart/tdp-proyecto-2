@@ -109,7 +109,11 @@ public class Jota extends Tetrimino {
 	}
 
 	@Override
-	public void rotar() {
+	public Iterable<Bloque> rotar() {
+		List<Bloque> listaAnteriores=new LinkedList<Bloque>();
+		for(Bloque bloq : getBloquesTetrimino()) {
+			listaAnteriores.add(miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()));
+		}
 		switch(angulo) {
 			case 0 :    A = moverBloqueAPos(A, pivote.getPosX()+1, pivote.getPosY());
 						B = moverBloqueAPos(B, pivote.getPosX()-1, pivote.getPosY());
@@ -132,6 +136,7 @@ public class Jota extends Tetrimino {
 						angulo = 0;
 						break;			
 		}
+		return listaAnteriores;
 	}
 
 }
