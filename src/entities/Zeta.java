@@ -17,13 +17,13 @@ public class Zeta extends Tetrimino{
 	public Zeta(Grilla miGrilla) {
 		this.miGrilla = miGrilla;
 		img = "/images/bloqueMagenta.png";
-		pivote = this.miGrilla.getBloque(1, 5);
+		pivote = this.miGrilla.getBloque(5, 1);
 		pivote.ocupar(img);
-		A = this.miGrilla.getBloque(0, 4);
+		A = this.miGrilla.getBloque(4, 0);
 		A.ocupar(img);
-		B = this.miGrilla.getBloque(0, 5);
+		B = this.miGrilla.getBloque(5, 0);
 		B.ocupar(img);
-		C = this.miGrilla.getBloque(1, 6);
+		C = this.miGrilla.getBloque(6, 1);
 		C.ocupar(img);
 		
 		angulo=0;

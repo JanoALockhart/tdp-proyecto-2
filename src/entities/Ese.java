@@ -6,15 +6,16 @@ import java.util.List;
 public class Ese extends Tetrimino{
 	
 	public Ese(Grilla miGrilla) {
+		img = "/images/bloqueGris.png";
 		this.miGrilla = miGrilla;
 		pivote = miGrilla.getBloque(3, 1);
-		pivote.ocupar("/images/bloqueVerde.png");
+		pivote.ocupar(img);
 		A =  miGrilla.getBloque(2, 1);
-		pivote.ocupar("/images/bloqueVerde.png");
+		A.ocupar(img);
 		B =  miGrilla.getBloque(4, 0);
-		pivote.ocupar("/images/bloqueVerde.png");
+		B.ocupar(img);
 		C =  miGrilla.getBloque(3, 0);
-		pivote.ocupar("/images/bloqueVerde.png");
+		C.ocupar(img);
 		misBloques = new LinkedList<Bloque>();
 		misBloques.add(pivote);
 		misBloques.add(A);

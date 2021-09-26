@@ -80,10 +80,19 @@ public abstract class Tetrimino {
 			bloq.desocupar();
 		}
 		for(Bloque bloq : misBloques) {
-			bloq = miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()-1);
-		}
+			bloq = miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()+1);
+			pivote = miGrilla.getBloque(pivote.getPosX(),pivote.getPosY()+1);
+			A = miGrilla.getBloque(A.getPosX(),A.getPosY()+1);
+			B = miGrilla.getBloque(B.getPosX(),B.getPosY()+1);
+			C = miGrilla.getBloque(C.getPosX(),C.getPosY()+1);
+			
+		}		
 		for(Bloque bloq : misBloques) {
 			bloq.ocupar(img);
+			pivote.ocupar(img);
+			A.ocupar(img);
+			B.ocupar(img);
+			C.ocupar(img);
 		}
 	}
 	

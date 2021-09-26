@@ -15,18 +15,35 @@ public class Grilla {
 		misBloques = new Bloque[21][10];
 		for(int fila = 0; fila < 21; fila++) {
 			for(int col = 0; col < 10; col++) {
-				misBloques[fila][col] = new Bloque("/images/bloqueVacio.png",fila,col,false);				
+				misBloques[fila][col] = new Bloque("/images/bloqueVerde.png",fila,col,false);				
 			}
 		}
+		//test/////////////////////////////////////
+		misBloques[0][0].setDirImagen("/images/bloqueVerde.png");
+		misBloques[0][1].setDirImagen("/images/bloqueAzul.png");
+		misBloques[1][0].setDirImagen("/images/bloqueRojo.png");
+		misBloques[2][0].setDirImagen("/images/bloqueGris.png");
+		
+		List<Bloque> test = new LinkedList<Bloque>();
+		test.add(misBloques[0][0]);
+		test.add(misBloques[0][1]);
+		test.add(misBloques[1][0]);
+		test.add(misBloques[2][0]);
+		
+		miJuego.actualizarGUI(test);
+		
+		///////////////////////////////
+		
 		this.miJuego = miJuego;
 		this.miFacbrica = new FabricaTetriminos(this);
-		miTetriminoActual = miFacbrica.generarNuevoTetrimino();
-		miTetriminoSiguiente = miFacbrica.generarNuevoTetrimino();
-		miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
+		miTetriminoActual = new Ele(this);
+//		miTetriminoActual = miFacbrica.generarNuevoTetrimino();
+		//miTetriminoSiguiente = miFacbrica.generarNuevoTetrimino();
+		this.miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 	}
 	
-	public Bloque getBloque(int f, int c) {
-		return misBloques[f][c];
+	public Bloque getBloque(int c, int f) {
+		return misBloques[c][f];
 	}
 	
 	/**
@@ -44,11 +61,11 @@ public class Grilla {
 				break;
 			}
 			guardado.add(b);
-			if(misBloques[b.getPosY()][b.getPosX()-1].isOcupado()) {
+			if(misBloques[b.getPosX()-1][b.getPosY()].isOcupado()) {
 				sePuede = false;
 				break;
 			}
-			guardado.add(misBloques[b.getPosY()][b.getPosX()-1]);
+			guardado.add(misBloques[b.getPosX()-1][b.getPosY()]);
 		}
 		if(sePuede) {
 			miTetriminoActual.moverIzquierda();
@@ -71,11 +88,11 @@ public class Grilla {
 				break;
 			}
 			guardado.add(b);
-			if(misBloques[b.getPosY()][b.getPosX()+1].isOcupado()) {
+			if(misBloques[b.getPosX()+1][b.getPosY()].isOcupado()) {
 				sePuede = false;
 				break;
 			}
-			guardado.add(misBloques[b.getPosY()][b.getPosX()+1]);
+			guardado.add(misBloques[b.getPosX()+1][b.getPosY()]);
 		}
 		if(sePuede) {
 			miTetriminoActual.moverDerecha();
@@ -94,7 +111,7 @@ public class Grilla {
 		bloquesRotar = miTetriminoActual.getBloquesParaRotar();
 		for (Bloque b : bloquesRotar) {
 			guardado.add(b);
-			if(misBloques[b.getPosY()][b.getPosX()].isOcupado()) {
+			if(misBloques[b.getPosX()][b.getPosY()].isOcupado()) {
 				sePuede = false;
 				break;
 			}
@@ -109,20 +126,32 @@ public class Grilla {
 	 */
 	public void bajarTetriminoActual() {
 		boolean sePuede = true;
+		List<Bloque> guardado = new LinkedList<Bloque>();
 		List<Bloque> bloquesDeAbajo;
-		bloquesDeAbajo = miTetriminoActual.getBLoquesMasDer();
+		bloquesDeAbajo = miTetriminoActual.getBLoquesAbajo();
 		for (Bloque b : bloquesDeAbajo) {
-			if(misBloques[b.getPosX()][b.getPosY()-1].isOcupado()) {
+			
+			System.out.println(misBloques[3][3].isOcupado());
+			
+			guardado.add(b);
+			
+			System.out.println(b.getPosX()+" "+(b.getPosY()+1));
+			
+			if(misBloques[b.getPosX()][b.getPosY()+1].isOcupado()) {
 				sePuede = false;
 				break;
 			}
+			guardado.add(misBloques[b.getPosX()][b.getPosY()+1]);			
 		}
 		if(sePuede) {
+			miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 			miTetriminoActual.caer();
+			miJuego.actualizarGUI(guardado);
 		}
 		else {
-			solidificarTetrimino();
-			VerificarLineas(miTetriminoActual);
+			System.out.println("holaaa");
+//			solidificarTetrimino();
+//			VerificarLineas(miTetriminoActual);
 		}
 			
 			
@@ -134,7 +163,7 @@ public class Grilla {
 	 * y solidificarlo con el resto de los bloques.
 	 */	
 	private void solidificarTetrimino() {
-		generarNuevoTetrimino(misBloques.length);
+		generarNuevoTetrimino(misBloques[0].length);
 		miTetriminoActual = miTetriminoSiguiente;
 		miTetriminoSiguiente = miFacbrica.generarNuevoTetrimino();		
 	}
@@ -221,7 +250,7 @@ public class Grilla {
 	 */
 	private void generarNuevoTetrimino(int num) {
 		for(int col = 0; col < misBloques[0].length; col++) {
-			if(misBloques[num][col].isOcupado()) {
+			if(misBloques[col][num].isOcupado()) {
 				miJuego.perder();
 				break;
 			}

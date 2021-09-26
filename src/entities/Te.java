@@ -5,7 +5,7 @@ import java.util.*;
 public class Te extends Tetrimino {
 
 	public Te(Grilla miGrilla) {
-		img = "images/bloqueNaranja.png";
+		img = "/images/bloqueNaranja.png";
 		this.miGrilla = miGrilla;
 		pivote = miGrilla.getBloque(4, 1);
 		pivote.ocupar(img);

@@ -90,8 +90,8 @@ public class GUI extends JFrame {
 		tableroTetriSiguiente.setLayout(new GridLayout(FILAS_TETRISIG, COL_TETRISIG, 0, 0));
 		contentPane.setLayout(elementos);
 		
-		//Crear Juego
-		juego = new Juego(this);
+//		//Crear Juego
+//		juego = new Juego(this);
 		
 		inicializarCeldasTableroJuego();
 		inicializarCeldasTableroTetriSiguiente();
@@ -113,6 +113,10 @@ public class GUI extends JFrame {
 				}
 			}
 		});
+		
+		//Crear Juego
+		juego = new Juego(this);
+		
 	}
 	/**
 	 * Metodo que cambia la imagen de los labels correspondientes
@@ -122,7 +126,7 @@ public class GUI extends JFrame {
 		ImageIcon icono;
 		for(Bloque bloq : bloquesActualizar) {
 			icono = reEscalar(bloq.getDirImagen());
-			matrizLabels[bloq.getPosX()][bloq.getPosY()].setIcon(icono);
+			matrizLabels[bloq.getPosY()][bloq.getPosX()].setIcon(icono);
 		}
 	}
 	
@@ -341,11 +345,9 @@ public class GUI extends JFrame {
 				celda = new JLabel();
 				celda.setSize(new Dimension(TAM_CELDA,TAM_CELDA));
 				celda.setIcon(img);
-				matrizLabels[fila][col]=celda;
+				matrizTetriSig[fila][col]=celda;
 				tableroTetriSiguiente.add(celda);
 			}
 		}
 	}
-	
-	
 }

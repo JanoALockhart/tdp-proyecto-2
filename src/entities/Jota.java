@@ -7,14 +7,15 @@ public class Jota extends Tetrimino {
 
 	public Jota(Grilla miGrilla) {
 		this.miGrilla = miGrilla;
+		img = "/images/bloqueVerde.png"; 
 		pivote = miGrilla.getBloque(3, 1);
-		pivote.ocupar("/images/bloqueVerde.png");
+		pivote.ocupar(img);
 		A =  miGrilla.getBloque(3, 0);
-		pivote.ocupar("/images/bloqueVerde.png");
+		A.ocupar(img);
 		B =  miGrilla.getBloque(3, 2);
-		pivote.ocupar("/images/bloqueVerde.png");
+		B.ocupar(img);
 		C =  miGrilla.getBloque(2, 2);
-		pivote.ocupar("/images/bloqueVerde.png");
+		C.ocupar(img);
 		misBloques = new LinkedList<Bloque>();
 		misBloques.add(pivote);
 		misBloques.add(A);

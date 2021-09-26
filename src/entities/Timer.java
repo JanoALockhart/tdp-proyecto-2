@@ -18,7 +18,7 @@ public class Timer {
 	public Timer(Juego juego) {
 		miJuego=juego;
 		tiempoTranscurrido=0;
-		velocidadTime=5000;
+		velocidadTime=1000;
 		
 		//Inciar hilos para contar el tiempo y avisar para hacer caer
 		cronometro = new Thread(new Runnable() {

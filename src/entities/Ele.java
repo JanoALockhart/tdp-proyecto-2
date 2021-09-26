@@ -7,14 +7,14 @@ public class Ele extends Tetrimino{
 	
 	public Ele(Grilla miGrilla) {
 		this.miGrilla = miGrilla;
-		pivote = miGrilla.getBloque(3, 2);
+		pivote = miGrilla.getBloque(3, 1);
 		pivote.ocupar("/images/bloqueRojo.png");
 		A =  miGrilla.getBloque(3, 0);
-		pivote.ocupar("/images/bloqueRojo.png");
-		B =  miGrilla.getBloque(3, 1);
-		pivote.ocupar("/images/bloqueRojo.png");
+		A.ocupar("/images/bloqueRojo.png");
+		B =  miGrilla.getBloque(3, 2);
+		B.ocupar("/images/bloqueRojo.png");
 		C =  miGrilla.getBloque(4, 2);
-		pivote.ocupar("/images/bloqueRojo.png");
+		C.ocupar("/images/bloqueRojo.png");
 		misBloques = new LinkedList<Bloque>();
 		misBloques.add(pivote);
 		misBloques.add(A);
