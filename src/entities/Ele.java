@@ -9,15 +9,20 @@ public class Ele extends Tetrimino{
 		this.miGrilla = miGrilla;
 		img="/images/bloqueRojo.png";
 		pivote = miGrilla.getBloque(3, 1);
-		pivote.ocupar(img);
 		A =  miGrilla.getBloque(3, 0);
-		A.ocupar(img);
 		B =  miGrilla.getBloque(3, 2);
-		B.ocupar(img);
 		C =  miGrilla.getBloque(4, 2);
-		C.ocupar(img);
 		angulo = 0;
 	}
+	
+	public void inicializarTetrimino() {
+		pivote.ocupar(img);
+		A.ocupar(img);
+		B.ocupar(img);
+		C.ocupar(img);
+	}
+	
+	
 	
 	@Override
 	public List<Bloque> getBloquesParaRotar() {

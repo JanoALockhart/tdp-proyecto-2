@@ -22,6 +22,8 @@ public class Grilla {
 		this.miJuego = miJuego;
 		this.miFacbrica = new FabricaTetriminos(this);
 		miTetriminoActual = new Ele(this);
+		miTetriminoActual.inicializarTetrimino();
+		miTetriminoSiguiente = new Ele(this);
 		this.miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 	}
 	
@@ -118,7 +120,7 @@ public class Grilla {
 		Iterable<Bloque> bloquesAnteriores;
 		bloquesDeAbajo = miTetriminoActual.getBLoquesAbajo();
 		for (Bloque b : bloquesDeAbajo) {
-			if(b.getPosY()==20 ||	 misBloques[b.getPosX()][b.getPosY()+1].isOcupado()) {
+			if(b.getPosY()==20 || misBloques[b.getPosX()][b.getPosY()+1].isOcupado()) {
 				sePuede = false;
 				break;
 			}	
@@ -141,9 +143,14 @@ public class Grilla {
 	 * y solidificarlo con el resto de los bloques.
 	 */	
 	private void solidificarTetrimino() {
-		generarNuevoTetrimino(misBloques[0].length-1);
+		//generarNuevoTetrimino(0);
 		miTetriminoActual = miTetriminoSiguiente;
-		miTetriminoSiguiente = miFacbrica.generarNuevoTetrimino();		
+		
+		miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
+		
+		miTetriminoSiguiente = new Ele(this);
+		
+		//generarNuevoTetrimino(0);
 	}
 	
 	/**
@@ -227,7 +234,7 @@ public class Grilla {
 	 *esten libres, si no estan libres, grilla llama a Juego.perder()
 	 */
 	private void generarNuevoTetrimino(int num) {
-		for(int col = 0; col < misBloques[0].length; col++) {
+		for(int col = 0; col < misBloques[0].length-1; col++) {
 			if(misBloques[col][num].isOcupado()) {
 				miJuego.perder();
 				break;

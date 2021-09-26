@@ -127,5 +127,8 @@ public abstract class Tetrimino {
 		misBloques.add(pivote);
 		return misBloques;
 	}
+	public void inicializarTetrimino() {
+		
+	}
 	
 }
