@@ -24,6 +24,7 @@ public class Grilla {
 		miTetriminoActual = new Ele(this);
 		miTetriminoActual.inicializarTetrimino();
 		miTetriminoSiguiente = new Ele(this);
+		miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
 		this.miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 	}
 	
@@ -130,9 +131,9 @@ public class Grilla {
 			miJuego.actualizarGUI(bloquesAnteriores);
 			miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 		}
-		else {
-			solidificarTetrimino();
+		else {			
 			VerificarLineas(miTetriminoActual);
+			solidificarTetrimino();
 		}
 			
 			
@@ -149,6 +150,7 @@ public class Grilla {
 		miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 		
 		miTetriminoSiguiente = new Ele(this);
+		miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
 		
 		//generarNuevoTetrimino(0);
 	}
@@ -160,47 +162,47 @@ public class Grilla {
 	 */
 	private void VerificarLineas(Tetrimino tetri) {
 		boolean ocupado = true;
-		for(int col = 0; col < misBloques[0].length; col++) {
-			if(!misBloques[tetri.A.getPosY()][col].isOcupado()) {
-				ocupado = false;
-				break;
-			}
-		}
-		if(ocupado)
-			romperLineas(tetri.A.getPosY());
-		ocupado = true;
-		
-		for(int col = 0; col < misBloques[0].length; col++) {
+//		for(int col = 0; col < misBloques[0].length; col++) {
+//			if(!misBloques[tetri.A.getPosY()][col].isOcupado()) {
+//				ocupado = false;
+//				break;
+//			}
+//		}
+//		if(ocupado)
+//			romperLineas(tetri.A.getPosY());
+//		ocupado = true;
+		System.out.println(misBloques.length);
+		for(int col = 0; col < misBloques.length; col++) {
 			
 			System.out.println("Chauuuuuuuuuuuu");
-			
-			if(!misBloques[tetri.B.getPosY()][col].isOcupado()) {
+			if(!misBloques[col][tetri.B.getPosY()].isOcupado()) {
 				ocupado = false;
 				break;
 			}
 		}
+		
 		if(ocupado)
 			romperLineas(tetri.B.getPosY());
 		ocupado = true;
 		
-		for(int col = 0; col < misBloques[0].length; col++) {
-			if(!misBloques[tetri.C.getPosY()][col].isOcupado()) {
-				ocupado = false;
-				break;
-			}
-		}
-		if(ocupado)
-			romperLineas(tetri.C.getPosY());
-		ocupado = true;
+//		for(int col = 0; col < misBloques[0].length; col++) {
+//			if(!misBloques[tetri.C.getPosY()][col].isOcupado()) {
+//				ocupado = false;
+//				break;
+//			}
+//		}
+//		if(ocupado)
+//			romperLineas(tetri.C.getPosY());
+//		ocupado = true;
 		
-		for(int col = 0; col < misBloques[0].length; col++) {
-			if(!misBloques[tetri.pivote.getPosY()][col].isOcupado()) {
-				ocupado = false;
-				break;
-			}
-		}
-		if(ocupado)
-			romperLineas(tetri.pivote.getPosY());		
+//		for(int col = 0; col < misBloques[0].length; col++) {
+//			if(!misBloques[tetri.pivote.getPosY()][col].isOcupado()) {
+//				ocupado = false;
+//				break;
+//			}
+//		}
+//		if(ocupado)
+//			romperLineas(tetri.pivote.getPosY());		
 		
 	}
 	/**
@@ -209,11 +211,15 @@ public class Grilla {
 	 * @param fila: es la fila que tiene que romper
 	 */
 	private void  romperLineas(int fila) {
+		List<Bloque> guardado = new LinkedList<Bloque>();
 		System.out.println("holaaaaaaaaaaaaaaaaaaaa");
-		for(int col = 0; col < misBloques[0].length; col++) {
-			misBloques[fila][col].desocupar();
+		for(int col = 0; col < misBloques.length; col++) {
+			guardado.add(misBloques[col][fila]);
+			misBloques[col][fila].desocupar();
 		}
-		bajarLineas(fila);
+		miJuego.actualizarGUI(guardado);
+		System.out.println(fila);
+		//bajarLineas(fila);
 	}
 	/**
 	 * Este método se encarga de ir bajando las filas, 
@@ -222,15 +228,16 @@ public class Grilla {
 	 */
 	private void bajarLineas(int filaRota) {
 		List<Bloque> listaDeGuardado = new LinkedList<Bloque>();		
-		for(int fila = filaRota; filaRota > 1; filaRota--) {
-			for(int col = 0; col < misBloques[0].length; col++) {
-				if(misBloques[fila--][col].isOcupado()) {
-					misBloques[fila][col].ocupar(misBloques[fila--][col].getDirImagen());;
-					misBloques[fila--][col].desocupar();
-					listaDeGuardado.add(misBloques[fila][col]);
+		for(int fila = filaRota; fila > 1; fila--) {
+			for(int col = 0; col < misBloques.length; col++) {
+				if(misBloques[col][fila--].isOcupado()) {
+					misBloques[col][fila].ocupar(misBloques[col][fila--].getDirImagen());;
+					misBloques[col][fila--].desocupar();
+					listaDeGuardado.add(misBloques[col][fila]);
 				}
 			}
-		}		
+		}
+		miJuego.actualizarGUI(listaDeGuardado);
 	}
 	
 	/*
