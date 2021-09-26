@@ -12,6 +12,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Image;
 
 import javax.swing.border.LineBorder;
@@ -20,6 +21,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class GUI extends JFrame {
 	
@@ -35,12 +38,16 @@ public class GUI extends JFrame {
 	private JLabel lblConTiempo;
 	private JLabel lblConPuntuacion;
 	
+	private Font mainFont;
+	
 	private static final int CANT_FILAS = 21;
 	private static final int CANT_COL = 10;
 	private static final int TAM_CELDA = 30;
 	
 	private static final int FILAS_TETRISIG = 3;
 	private static final int COL_TETRISIG = 6;
+	
+	private static final InputStream INPUT_STREAM_FUENTE = GUI.class.getResourceAsStream("../fonts/Early GameBoy.ttf");
 	
 	
 	/**
@@ -69,6 +76,13 @@ public class GUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		
+		try {
+			mainFont = Font.createFont(Font.TRUETYPE_FONT, INPUT_STREAM_FUENTE);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}	
+		mainFont=mainFont.deriveFont(18f);
 		
 		GroupLayout elementos = colocarElementosGraficos();
 				
@@ -163,27 +177,27 @@ public class GUI extends JFrame {
 		JLabel lblGameOver = new JLabel("GAME OVER");
 		lblGameOver.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGameOver.setForeground(Color.WHITE);
-		lblGameOver.setFont(new Font("Showcard Gothic", Font.PLAIN, 60));
+		lblGameOver.setFont(mainFont);
 		
 		JLabel lblPuntuacion = new JLabel("PUNTUACION");
 		lblPuntuacion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPuntuacion.setForeground(Color.WHITE);
-		lblPuntuacion.setFont(new Font("Showcard Gothic", Font.PLAIN, 45));
+		lblPuntuacion.setFont(mainFont);
 		
 		JLabel lblTiempo = new JLabel("TIEMPO");
 		lblTiempo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTiempo.setForeground(Color.WHITE);
-		lblTiempo.setFont(new Font("Showcard Gothic", Font.PLAIN, 45));
+		lblTiempo.setFont(mainFont);
 		
 		JLabel lblConPuntuacionES = new JLabel(lblConPuntuacion.getText());
 		lblConPuntuacionES.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConPuntuacionES.setForeground(Color.WHITE);
-		lblConPuntuacionES.setFont(new Font("Showcard Gothic", Font.PLAIN, 45));
+		lblConPuntuacionES.setFont(mainFont);
 		
 		JLabel lblConTiempoES = new JLabel(lblConTiempo.getText());
 		lblConTiempoES.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConTiempoES.setForeground(Color.WHITE);
-		lblConTiempoES.setFont(new Font("Showcard Gothic", Font.PLAIN, 45));
+		lblConTiempoES.setFont(mainFont);
 		GroupLayout gl_endScreen = new GroupLayout(endScreen);
 		gl_endScreen.setHorizontalGroup(
 			gl_endScreen.createParallelGroup(Alignment.LEADING)
@@ -235,25 +249,26 @@ public class GUI extends JFrame {
 	 * y el contenedor para mostrar el tetrimino siguientes
 	 */
 	private GroupLayout colocarElementosGraficos() {
+				
 		tableroDeJuego = new JPanel();
 		tableroDeJuego.setBorder(new LineBorder(Color.BLACK));
 		
 		System.out.println(""+tableroDeJuego!=null);
 		
 		JLabel lblTiempo = new JLabel("TIEMPO");
-		lblTiempo.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		lblTiempo.setFont(mainFont);
 		
 		lblConTiempo = new JLabel("00:00");
-		lblConTiempo.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		lblConTiempo.setFont(mainFont);
 		
 		JLabel lblPuntuacion = new JLabel("PUNTUACION\r\n");
-		lblPuntuacion.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		lblPuntuacion.setFont(mainFont);
 		
 		lblConPuntuacion = new JLabel("0000000");
-		lblConPuntuacion.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		lblConPuntuacion.setFont(mainFont);
 		
 		JLabel lblSiguiente = new JLabel("SIGUIENTE");
-		lblSiguiente.setFont(new Font("Showcard Gothic", Font.PLAIN, 25));
+		lblSiguiente.setFont(mainFont);
 		
 		tableroTetriSiguiente = new JPanel();
 		
