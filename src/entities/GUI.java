@@ -91,7 +91,7 @@ public class GUI extends JFrame {
 		contentPane.setLayout(elementos);
 		
 		//Crear Juego
-		//juego = new Juego(this);
+		juego = new Juego(this);
 		
 		inicializarCeldasTableroJuego();
 		inicializarCeldasTableroTetriSiguiente();
@@ -114,8 +114,6 @@ public class GUI extends JFrame {
 			}
 		});
 	}
-	
-	//TODO que recibe? propuesta: coleccion de bloques
 	/**
 	 * Metodo que cambia la imagen de los labels correspondientes
 	 * en el tablero de la GUI, segun los bloques pasados por parametro.
@@ -252,8 +250,6 @@ public class GUI extends JFrame {
 				
 		tableroDeJuego = new JPanel();
 		tableroDeJuego.setBorder(new LineBorder(Color.BLACK));
-		
-		System.out.println(""+tableroDeJuego!=null);
 		
 		JLabel lblTiempo = new JLabel("TIEMPO");
 		lblTiempo.setFont(mainFont);

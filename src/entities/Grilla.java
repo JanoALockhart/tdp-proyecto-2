@@ -60,16 +60,25 @@ public class Grilla {
 	 */
 	public void moverDer() {
 		boolean sePuede = true;
+		List<Bloque> guardado = new LinkedList<Bloque>();
 		List<Bloque> bloquesDerechos;
 		bloquesDerechos = miTetriminoActual.getBLoquesMasDer();
 		for (Bloque b : bloquesDerechos) {
+			if(b.getPosX() == misBloques[0].length) {
+				sePuede = false;
+				break;
+			}
+			guardado.add(b);
 			if(misBloques[b.getPosY()][b.getPosX()+1].isOcupado()) {
 				sePuede = false;
 				break;
 			}
+			guardado.add(misBloques[b.getPosY()][b.getPosX()+1]);
 		}
-		if(sePuede)
+		if(sePuede) {
 			miTetriminoActual.moverDerecha();
+			miJuego.actualizarGUI(guardado);
+		}
 	}
 	
 	/**
@@ -78,10 +87,12 @@ public class Grilla {
 	 */
 	public void moverRotar() {
 		boolean sePuede = true;
+		List<Bloque> guardado = new LinkedList<Bloque>();
 		List<Bloque> bloquesRotar;
 		bloquesRotar = miTetriminoActual.getBloquesParaRotar();
 		for (Bloque b : bloquesRotar) {
-			if(misBloques[b.getPosX()+1][b.getPosY()].isOcupado()) {
+			guardado.add(b);
+			if(misBloques[b.getPosY()][b.getPosX()].isOcupado()) {
 				sePuede = false;
 				break;
 			}
