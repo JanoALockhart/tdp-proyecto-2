@@ -134,11 +134,14 @@ public class GUI extends JFrame {
 	}
 	
 	/**
-	 * Metodo que actualiza cual será el siguiente
-	 * tetrimino.
+	 * Metodo que actualiza el tablero que muestra
+	 * cual será el siguiente tetrimino.
 	 */
-	public void actualizarNuevoTetrimino() {
-		
+	public void actualizarNuevoTetrimino(Tetrimino sigTetri) {
+		ImageIcon icono = reEscalar(sigTetri.getImage());
+		for(Bloque bloq : sigTetri.getBloquesTetrimino()) {
+			matrizTetriSig[bloq.getPosX()-2][bloq.getPosY()].setIcon(icono);
+		}
 	}
 	
 	/**

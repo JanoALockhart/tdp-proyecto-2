@@ -119,6 +119,11 @@ public abstract class Tetrimino {
 		return bloque;
 	}
 	
+	/**
+	 * Devuelve una coleccion de los bloques a los que apunta
+	 * los atributos del tetrimino
+	 * @return Una coleccion con los bloques actuales del tetrimino
+	 */
 	public Iterable<Bloque> getBloquesTetrimino(){
 		List<Bloque> misBloques=new LinkedList<Bloque>();
 		misBloques.add(A);
@@ -127,11 +132,25 @@ public abstract class Tetrimino {
 		misBloques.add(pivote);
 		return misBloques;
 	}
+	
+	/**
+	 * Este metodo hace efectivo los bloques
+	 * que ocupa el tetrimino
+	 */
 	public void inicializarTetrimino() {
 		pivote.ocupar(img);
 		A.ocupar(img);
 		B.ocupar(img);
 		C.ocupar(img);
+	}
+	
+	/**
+	 * Metodo que devuelve la imagen que corresponde
+	 * a los bloques del tetrimino.
+	 * @return
+	 */
+	public String getImage() {
+		return img;
 	}
 	
 }

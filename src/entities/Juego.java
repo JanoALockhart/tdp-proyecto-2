@@ -87,6 +87,15 @@ public class Juego {
 		interfazGrafica.actualizarLabels(bloquesModificados);
 	}
 	
+	/**
+	 * Metodo que le pide a la gui que actualice el tablero que
+	 * muestra el tetrimino siguiente.
+	 * @param siguiente Es el siguiente tetrimino a mostrar
+	 */
+	public void actualizarTetriSiguiente(Tetrimino sigTetri) {
+		interfazGrafica.actualizarNuevoTetrimino(sigTetri);
+	}
+	
 	public synchronized void operarJuego(int operacion) {
 		switch(operacion) {
 			case MOVER_ABAJO: {hacerCaer(); break;}
