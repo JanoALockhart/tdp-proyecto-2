@@ -19,8 +19,10 @@ public class Grilla {
 			}
 		}
 		this.miJuego = miJuego;
+		this.miFacbrica = new FabricaTetriminos(this);
 		miTetriminoActual = miFacbrica.generarNuevoTetrimino();
 		miTetriminoSiguiente = miFacbrica.generarNuevoTetrimino();
+		miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 	}
 	
 	public Bloque getBloque(int f, int c) {

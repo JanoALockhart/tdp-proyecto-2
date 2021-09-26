@@ -101,5 +101,7 @@ public abstract class Tetrimino {
 		return bloque;
 	}
 	
-	
+	public Iterable<Bloque> getBloquesTetrimino(){
+		return misBloques;
+	}
 }

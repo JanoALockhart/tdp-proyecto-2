@@ -23,7 +23,7 @@ public class Juego {
 	public Juego(GUI gui) {
 		temporizador = new Timer(this);
 		miGrilla = new Grilla(this);
-		interfazGrafica = gui;
+		interfazGrafica = gui;		
 	}
 	
 	/**

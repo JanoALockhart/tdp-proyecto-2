@@ -27,7 +27,7 @@ public class Zeta extends Tetrimino{
 		C.ocupar(img);
 		
 		angulo=0;
-		
+		misBloques = new LinkedList<Bloque>();
 		misBloques.add(pivote);
 		misBloques.add(A);
 		misBloques.add(B);

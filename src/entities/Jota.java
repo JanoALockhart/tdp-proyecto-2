@@ -15,6 +15,7 @@ public class Jota extends Tetrimino {
 		pivote.ocupar("/images/bloqueVerde.png");
 		C =  miGrilla.getBloque(2, 2);
 		pivote.ocupar("/images/bloqueVerde.png");
+		misBloques = new LinkedList<Bloque>();
 		misBloques.add(pivote);
 		misBloques.add(A);
 		misBloques.add(B);

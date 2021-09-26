@@ -76,8 +76,8 @@ public class GUI extends JFrame {
 		tableroTetriSiguiente.setLayout(new GridLayout(FILAS_TETRISIG, COL_TETRISIG, 0, 0));
 		contentPane.setLayout(elementos);
 		
-		//Crear Juego
-		juego = new Juego(this);
+//		//Crear Juego
+//		juego = new Juego(this);
 		
 		inicializarCeldasTableroJuego();
 		inicializarCeldasTableroTetriSiguiente();
@@ -99,6 +99,8 @@ public class GUI extends JFrame {
 				}
 			}
 		});
+		//Crear Juego
+		juego = new Juego(this);
 	}
 	/**
 	 * Metodo que cambia la imagen de los labels correspondientes

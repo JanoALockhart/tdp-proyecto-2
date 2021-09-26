@@ -15,6 +15,7 @@ public class Ele extends Tetrimino{
 		pivote.ocupar("/images/bloqueRojo.png");
 		C =  miGrilla.getBloque(4, 2);
 		pivote.ocupar("/images/bloqueRojo.png");
+		misBloques = new LinkedList<Bloque>();
 		misBloques.add(pivote);
 		misBloques.add(A);
 		misBloques.add(B);

@@ -15,6 +15,7 @@ public class Cuadrado extends Tetrimino{
 		B.ocupar(img);
 		C = miGrilla.getBloque(5,1);
 		C.ocupar(img);
+		misBloques = new LinkedList<Bloque>();
 		misBloques.add(pivote);
 		misBloques.add(A);
 		misBloques.add(B);
