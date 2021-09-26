@@ -128,7 +128,10 @@ public abstract class Tetrimino {
 		return misBloques;
 	}
 	public void inicializarTetrimino() {
-		
+		pivote.ocupar(img);
+		A.ocupar(img);
+		B.ocupar(img);
+		C.ocupar(img);
 	}
 	
 }

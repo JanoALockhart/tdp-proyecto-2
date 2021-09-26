@@ -15,15 +15,6 @@ public class Ele extends Tetrimino{
 		angulo = 0;
 	}
 	
-	public void inicializarTetrimino() {
-		pivote.ocupar(img);
-		A.ocupar(img);
-		B.ocupar(img);
-		C.ocupar(img);
-	}
-	
-	
-	
 	@Override
 	public List<Bloque> getBloquesParaRotar() {
 		List<Bloque> lista = new LinkedList<Bloque>();

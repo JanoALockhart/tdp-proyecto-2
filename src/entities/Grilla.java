@@ -145,7 +145,7 @@ public class Grilla {
 	private void solidificarTetrimino() {
 		//generarNuevoTetrimino(0);
 		miTetriminoActual = miTetriminoSiguiente;
-		
+		miTetriminoActual.inicializarTetrimino();
 		miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 		
 		miTetriminoSiguiente = new Ele(this);
@@ -161,7 +161,7 @@ public class Grilla {
 	private void VerificarLineas(Tetrimino tetri) {
 		boolean ocupado = true;
 		for(int col = 0; col < misBloques[0].length; col++) {
-			if(!misBloques[tetri.A.getPosX()][col].isOcupado()) {
+			if(!misBloques[tetri.A.getPosY()][col].isOcupado()) {
 				ocupado = false;
 				break;
 			}
@@ -171,6 +171,9 @@ public class Grilla {
 		ocupado = true;
 		
 		for(int col = 0; col < misBloques[0].length; col++) {
+			
+			System.out.println("Chauuuuuuuuuuuu");
+			
 			if(!misBloques[tetri.B.getPosY()][col].isOcupado()) {
 				ocupado = false;
 				break;
@@ -206,6 +209,7 @@ public class Grilla {
 	 * @param fila: es la fila que tiene que romper
 	 */
 	private void  romperLineas(int fila) {
+		System.out.println("holaaaaaaaaaaaaaaaaaaaa");
 		for(int col = 0; col < misBloques[0].length; col++) {
 			misBloques[fila][col].desocupar();
 		}
