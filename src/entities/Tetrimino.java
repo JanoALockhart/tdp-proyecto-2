@@ -7,7 +7,6 @@ public abstract class Tetrimino {
 	protected Grilla miGrilla;
 	protected Bloque pivote, A, B, C;
 	protected int angulo;
-	protected List<Bloque> misBloques; //TODO elegir lista o arreglo
 	
 	/**
 	 * Retorna una lista iterable con los bloques que seran cambiados de posicion
@@ -40,60 +39,70 @@ public abstract class Tetrimino {
 	/**
 	 * Rota el tetrimino
 	 */
-	public abstract void rotar();
+	public abstract Iterable<Bloque> rotar();
 	
 	/**
 	 * Mueve el tetrimino una posicion a la derecha
 	 */
-	public void moverDerecha() {
-		for(Bloque bloq : misBloques) {
+	public Iterable<Bloque> moverDerecha() {
+		List<Bloque> listaAnteriores=new LinkedList<Bloque>();
+		for(Bloque bloq : getBloquesTetrimino()) {
+			listaAnteriores.add(miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()));
 			bloq.desocupar();
 		}
-		for(Bloque bloq : misBloques) {
-			bloq = miGrilla.getBloque(bloq.getPosX()+1,bloq.getPosY());
-		}
-		for(Bloque bloq : misBloques) {
-			bloq.ocupar(img);
-		}
+		A = miGrilla.getBloque(A.getPosX()+1,A.getPosY());
+		B = miGrilla.getBloque(B.getPosX()+1,B.getPosY());
+		C = miGrilla.getBloque(C.getPosX()+1,C.getPosY());
+		pivote = miGrilla.getBloque(pivote.getPosX()+1,pivote.getPosY());
+		A.ocupar(img);
+		B.ocupar(img);
+		C.ocupar(img);
+		pivote.ocupar(img);
+		return listaAnteriores;
 	}
 	
 	/**
 	 * Mueve el tetrimino una posicion a la izquierda
 	 */
-	public void moverIzquierda() {
-		for(Bloque bloq : misBloques) {
+	public Iterable<Bloque> moverIzquierda() {
+		List<Bloque> listaAnteriores=new LinkedList<Bloque>();
+		for(Bloque bloq : getBloquesTetrimino()) {
+			listaAnteriores.add(miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()));
 			bloq.desocupar();
 		}
-		for(Bloque bloq : misBloques) {
-			bloq = miGrilla.getBloque(bloq.getPosX()-1,bloq.getPosY());
-		}
-		for(Bloque bloq : misBloques) {
-			bloq.ocupar(img);
-		}
+		A = miGrilla.getBloque(A.getPosX()-1,A.getPosY());
+		B = miGrilla.getBloque(B.getPosX()-1,B.getPosY());
+		C = miGrilla.getBloque(C.getPosX()-1,C.getPosY());
+		pivote = miGrilla.getBloque(pivote.getPosX()-1,pivote.getPosY());
+		A.ocupar(img);
+		B.ocupar(img);
+		C.ocupar(img);
+		pivote.ocupar(img);
+		return listaAnteriores;
 	}
 	
 	/**
 	 * Mueve el tetrimino una posicion abajo.
 	 */
-	public void caer() {
-		for(Bloque bloq : misBloques) {
+	public Iterable<Bloque> caer() {
+		// lista de bloques anteriores
+		List<Bloque> listaAnteriores=new LinkedList<Bloque>();
+		for(Bloque bloq : getBloquesTetrimino()) {
+			// pone en una lista el bloque con get bloque
+			listaAnteriores.add(miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()));
 			bloq.desocupar();
 		}
-		for(Bloque bloq : misBloques) {
-			bloq = miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()+1);
-			pivote = miGrilla.getBloque(pivote.getPosX(),pivote.getPosY()+1);
-			A = miGrilla.getBloque(A.getPosX(),A.getPosY()+1);
-			B = miGrilla.getBloque(B.getPosX(),B.getPosY()+1);
-			C = miGrilla.getBloque(C.getPosX(),C.getPosY()+1);
-			
-		}		
-		for(Bloque bloq : misBloques) {
-			bloq.ocupar(img);
-			pivote.ocupar(img);
-			A.ocupar(img);
-			B.ocupar(img);
-			C.ocupar(img);
-		}
+		
+		pivote = miGrilla.getBloque(pivote.getPosX(),pivote.getPosY()+1);
+		A = miGrilla.getBloque(A.getPosX(),A.getPosY()+1);
+		B = miGrilla.getBloque(B.getPosX(),B.getPosY()+1);
+		C = miGrilla.getBloque(C.getPosX(),C.getPosY()+1);
+				
+		pivote.ocupar(img);
+		A.ocupar(img);
+		B.ocupar(img);
+		C.ocupar(img);
+		return listaAnteriores;
 	}
 	
 	/**
@@ -111,6 +120,12 @@ public abstract class Tetrimino {
 	}
 	
 	public Iterable<Bloque> getBloquesTetrimino(){
+		List<Bloque> misBloques=new LinkedList<Bloque>();
+		misBloques.add(A);
+		misBloques.add(B);
+		misBloques.add(C);
+		misBloques.add(pivote);
 		return misBloques;
 	}
+	
 }

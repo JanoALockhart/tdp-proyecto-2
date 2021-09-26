@@ -7,19 +7,15 @@ public class Ele extends Tetrimino{
 	
 	public Ele(Grilla miGrilla) {
 		this.miGrilla = miGrilla;
+		img="/images/bloqueRojo.png";
 		pivote = miGrilla.getBloque(3, 1);
-		pivote.ocupar("/images/bloqueRojo.png");
+		pivote.ocupar(img);
 		A =  miGrilla.getBloque(3, 0);
-		A.ocupar("/images/bloqueRojo.png");
+		A.ocupar(img);
 		B =  miGrilla.getBloque(3, 2);
-		B.ocupar("/images/bloqueRojo.png");
+		B.ocupar(img);
 		C =  miGrilla.getBloque(4, 2);
-		C.ocupar("/images/bloqueRojo.png");
-		misBloques = new LinkedList<Bloque>();
-		misBloques.add(pivote);
-		misBloques.add(A);
-		misBloques.add(B);
-		misBloques.add(C);
+		C.ocupar(img);
 		angulo = 0;
 	}
 	
@@ -56,6 +52,7 @@ public class Ele extends Tetrimino{
 						lista.add(C);
 					  	break;
 			case 90:	lista.add(A);
+						lista.add(C);
 						break;
 			case 180:	lista.add(A);
 						lista.add(pivote);
@@ -113,21 +110,25 @@ public class Ele extends Tetrimino{
 	}
 
 	@Override
-	public void rotar() {
+	public Iterable<Bloque> rotar() {
+		List<Bloque> listaAnteriores=new LinkedList<Bloque>();
+		for(Bloque bloq : getBloquesTetrimino()) {
+			listaAnteriores.add(miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()));
+		}
 		switch(angulo) {
 			case 0 :    A = moverBloqueAPos(A, pivote.getPosX()+1, pivote.getPosY());
 						B = moverBloqueAPos(B, pivote.getPosX()-1, pivote.getPosY());
-						C = moverBloqueAPos(C, pivote.getPosX()-1, pivote.getPosY()-1);
+						C = moverBloqueAPos(C, pivote.getPosX()-1, pivote.getPosY()+1);
 						angulo = 90;
 						break;
-			case 90:	A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()-1);
-						B = moverBloqueAPos(B, pivote.getPosX(), pivote.getPosY()+1);
+			case 90:	A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()+1);
+						B = moverBloqueAPos(B, pivote.getPosX(), pivote.getPosY()-1);
 						C = moverBloqueAPos(C, pivote.getPosX()-1, pivote.getPosY()-1);
 						angulo = 180;
 						break;
 			case 180:	A = moverBloqueAPos(A, pivote.getPosX()-1, pivote.getPosY());
 						B = moverBloqueAPos(B, pivote.getPosX()+1, pivote.getPosY());
-						C = moverBloqueAPos(C, pivote.getPosX()+1, pivote.getPosY()+1);
+						C = moverBloqueAPos(C, pivote.getPosX()+1, pivote.getPosY()-1);
 						angulo = 270;
 						break;
 			case 270:	A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()-1);
@@ -136,5 +137,6 @@ public class Ele extends Tetrimino{
 						angulo = 0;
 						break;			
 		}
+		return listaAnteriores;
 	}	
 }

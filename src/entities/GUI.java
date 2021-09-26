@@ -103,12 +103,15 @@ public class GUI extends JFrame {
 				switch (teclaApretada.getKeyCode()) {
 					case KeyEvent.VK_D:{
 						juego.operarJuego(Juego.MOVER_DERECHA);
+						break;
 					}
 					case KeyEvent.VK_A:{
 						juego.operarJuego(Juego.MOVER_IZQUIERDA);
+						break;
 					}
 					case KeyEvent.VK_SPACE:{
 						juego.operarJuego(Juego.ROTAR);
+						break;
 					}
 				}
 			}
@@ -126,7 +129,7 @@ public class GUI extends JFrame {
 		ImageIcon icono;
 		for(Bloque bloq : bloquesActualizar) {
 			icono = reEscalar(bloq.getDirImagen());
-			matrizLabels[bloq.getPosY()][bloq.getPosX()].setIcon(icono);
+			matrizLabels[bloq.getPosX()][bloq.getPosY()].setIcon(icono);
 		}
 	}
 	
@@ -316,25 +319,24 @@ public class GUI extends JFrame {
 	}
 	
 	private void inicializarCeldasTableroJuego() {
-		matrizLabels = new JLabel[CANT_FILAS][CANT_COL];
+		matrizLabels = new JLabel[CANT_COL][CANT_FILAS];
 		//Ajustar tamaño magen bloque vacio al tamaño de la celda
 		ImageIcon img = reEscalar("/images/bloqueVacio.png");
 		JLabel celda;
-		
 		//Inicializar los labels con la imagen y agregarlos a la matriz y al panel grafico
 		for(int fila=0; fila<CANT_FILAS; fila++) {
 			for(int col=0; col<CANT_COL; col++) {
 				celda = new JLabel();
 				celda.setSize(new Dimension(TAM_CELDA,TAM_CELDA));
 				celda.setIcon(img);
-				matrizLabels[fila][col]=celda;
+				matrizLabels[col][fila]=celda;
 				tableroDeJuego.add(celda);
 			}
 		}	
 	}
 	
 	private void inicializarCeldasTableroTetriSiguiente() {
-		matrizTetriSig = new JLabel[FILAS_TETRISIG][COL_TETRISIG];
+		matrizTetriSig = new JLabel[COL_TETRISIG][FILAS_TETRISIG];
 		
 		ImageIcon img = reEscalar("/images/bloqueVacio.png");
 		JLabel celda;
@@ -345,7 +347,7 @@ public class GUI extends JFrame {
 				celda = new JLabel();
 				celda.setSize(new Dimension(TAM_CELDA,TAM_CELDA));
 				celda.setIcon(img);
-				matrizTetriSig[fila][col]=celda;
+				matrizTetriSig[col][fila]=celda;
 				tableroTetriSiguiente.add(celda);
 			}
 		}

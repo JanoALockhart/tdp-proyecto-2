@@ -26,12 +26,7 @@ public class Zeta extends Tetrimino{
 		C = this.miGrilla.getBloque(6, 1);
 		C.ocupar(img);
 		
-		angulo=0;
-		misBloques = new LinkedList<Bloque>();
-		misBloques.add(pivote);
-		misBloques.add(A);
-		misBloques.add(B);
-		misBloques.add(C);		
+		angulo=0;	
 	}
 	
 	/**

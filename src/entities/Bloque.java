@@ -54,7 +54,7 @@ public class Bloque {
 	 */
 	public void desocupar() {
 		ocupado=false;
-		dirImage="../images/bloqueVacio.png";
+		dirImage="/images/bloqueVacio.png";
 	}
 	
 	/**

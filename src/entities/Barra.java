@@ -15,11 +15,6 @@ public class Barra extends Tetrimino {
 		B.ocupar(img);
 		C =  miGrilla.getBloque(6, 0);
 		C.ocupar(img);
-		misBloques = new LinkedList<Bloque>();
-		misBloques.add(pivote);
-		misBloques.add(A);
-		misBloques.add(B);
-		misBloques.add(C);
 		angulo = 0;
 	}
 	
