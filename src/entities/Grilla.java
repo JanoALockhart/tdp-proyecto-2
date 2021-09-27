@@ -132,7 +132,7 @@ public class Grilla {
 			miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 		}
 		else {			
-			VerificarLineas(miTetriminoActual);
+			verificarLineas(miTetriminoActual);
 			solidificarTetrimino();
 		}
 			
@@ -160,50 +160,24 @@ public class Grilla {
 	 * que conforma el tetrimino se puede romper
 	 * @param tetri: es el tetrimino actual 
 	 */
-	private void VerificarLineas(Tetrimino tetri) {
+	private void verificarLineas(Tetrimino tetri) {
 		boolean ocupado = true;
-//		for(int col = 0; col < misBloques[0].length; col++) {
-//			if(!misBloques[tetri.A.getPosY()][col].isOcupado()) {
-//				ocupado = false;
-//				break;
-//			}
-//		}
-//		if(ocupado)
-//			romperLineas(tetri.A.getPosY());
-//		ocupado = true;
-		System.out.println(misBloques.length);
-		for(int col = 0; col < misBloques.length; col++) {
-			
-			System.out.println("Chauuuuuuuuuuuu");
-			if(!misBloques[col][tetri.B.getPosY()].isOcupado()) {
-				ocupado = false;
-				break;
+		Iterable<Bloque> bloquesDelTetri = tetri.getBloquesTetrimino();
+
+		
+		for (Bloque b : bloquesDelTetri) {
+			for(int col = 0; col < misBloques.length; col++) {
+				
+				System.out.println("Chauuuuuuuuuuuu");
+				if(!misBloques[col][b.getPosY()].isOcupado()) {
+					ocupado = false;
+					break;
+				}
 			}
+			if(ocupado)
+				romperLineas(b.getPosY());
+			ocupado = true;
 		}
-		
-		if(ocupado)
-			romperLineas(tetri.B.getPosY());
-		ocupado = true;
-		
-//		for(int col = 0; col < misBloques[0].length; col++) {
-//			if(!misBloques[tetri.C.getPosY()][col].isOcupado()) {
-//				ocupado = false;
-//				break;
-//			}
-//		}
-//		if(ocupado)
-//			romperLineas(tetri.C.getPosY());
-//		ocupado = true;
-		
-//		for(int col = 0; col < misBloques[0].length; col++) {
-//			if(!misBloques[tetri.pivote.getPosY()][col].isOcupado()) {
-//				ocupado = false;
-//				break;
-//			}
-//		}
-//		if(ocupado)
-//			romperLineas(tetri.pivote.getPosY());		
-		
 	}
 	/**
 	 * Este método se encarga de romper toda una fila,
