@@ -24,6 +24,7 @@ public class Juego {
 		temporizador = new Timer(this);
 		interfazGrafica = gui;
 		miGrilla = new Grilla(this);
+		score = 0;
 	}
 	
 	/**
@@ -33,6 +34,7 @@ public class Juego {
 	 */
 	public void addScore(int cant) {
 		score+=cant;
+		interfazGrafica.actualizarScore(score);
 	}
 	
 	/**
