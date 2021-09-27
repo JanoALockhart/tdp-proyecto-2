@@ -11,6 +11,7 @@ public class Juego {
 	private Grilla miGrilla;
 	private GUI interfazGrafica;
 	private Timer temporizador;
+	private static final int[] SCOREVALUES={100,200,500,800};
 	
 	//constantes para el metodo sincronizado operarJuego
 	public static final int MOVER_ABAJO = 1;
@@ -33,7 +34,7 @@ public class Juego {
 	 * @param cant Es la cantidad de puntos que se quieren sumar.
 	 */
 	public void addScore(int cant) {
-		score+=cant;
+		score+=SCOREVALUES[cant-1];
 		interfazGrafica.actualizarScore(score);
 	}
 	

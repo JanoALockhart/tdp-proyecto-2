@@ -162,6 +162,7 @@ public class Grilla {
 	 */
 	private void verificarLineas(Tetrimino tetri) {
 		boolean ocupado = true;
+		int filasRotas=0;
 		Iterable<Bloque> bloquesDelTetri = tetri.getBloquesTetrimino();
 
 		
@@ -174,10 +175,13 @@ public class Grilla {
 					break;
 				}
 			}
-			if(ocupado)
+			if(ocupado) {
 				romperLineas(b.getPosY());
+				filasRotas++;
+			}
 			ocupado = true;
 		}
+		if(filasRotas>0) miJuego.addScore(filasRotas);
 	}
 	/**
 	 * Este método se encarga de romper toda una fila,
