@@ -21,9 +21,9 @@ public class Grilla {
 		
 		this.miJuego = miJuego;
 		this.miFabrica = new FabricaTetriminos(this);
-		miTetriminoActual = new Ele(this);
+		miTetriminoActual = new Ese(this);
 		miTetriminoActual.inicializarTetrimino();
-		miTetriminoSiguiente = new Ele(this);
+		miTetriminoSiguiente = new Ese(this);
 		miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
 		this.miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 	}
@@ -98,7 +98,7 @@ public class Grilla {
 		bloquesRotar = miTetriminoActual.getBloquesParaRotar();
 		Iterable<Bloque> bloquesAnteriores;
 		for (Bloque b : bloquesRotar) {
-			if(b==null || misBloques[b.getPosX()][b.getPosY()].isOcupado()) {
+			if(b==null || (misBloques[b.getPosX()][b.getPosY()].isOcupado())) {
 				sePuede = false;
 				break;
 			}
@@ -148,7 +148,7 @@ public class Grilla {
 		miTetriminoActual.inicializarTetrimino();
 		miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 	
-		miTetriminoSiguiente = new Ele(this);
+		miTetriminoSiguiente = new Ese(this);
 		miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
 		
 		//generarNuevoTetrimino(0);
