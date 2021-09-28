@@ -5,6 +5,7 @@ public class Timer {
 	private Juego miJuego;
 	private int tiempoTranscurrido;
 	private int velocidadTime;
+	private boolean activo;
 	
 	private Thread cronometro;
 	private Thread avisadorCaer;
@@ -19,6 +20,7 @@ public class Timer {
 		miJuego=juego;
 		tiempoTranscurrido=0;
 		velocidadTime=500;
+		activo = true;
 		
 		//Inciar hilos para contar el tiempo y avisar para hacer caer
 		cronometro = new Thread(new Runnable() {
@@ -41,7 +43,7 @@ public class Timer {
 	 * y avisa al juego para que se vaya actualizando.
 	 */
 	public void contadorSegundos() {
-		while(true) {
+		while(activo) {
 			try {
 				Thread.sleep(1000);
 				tiempoTranscurrido++;
@@ -59,7 +61,7 @@ public class Timer {
 	 */
 	public void regularCaida() {
 		int contador=0;
-		while(true) {
+		while(activo) {
 			try {
 				Thread.sleep(velocidadTime);
 				miJuego.operarJuego(Juego.MOVER_ABAJO);
@@ -71,6 +73,21 @@ public class Timer {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * Metodo que detiene el cronometro y el avisadorCaer
+	 */
+	public void detener() {
+		activo = false;
+	}
+	
+	public Thread getCronometro() {
+		return cronometro;
+	}
+	
+	public Thread getAvisadorCaer() {
+		return avisadorCaer;
 	}
 	
 	/**

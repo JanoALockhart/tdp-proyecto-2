@@ -37,6 +37,7 @@ public class GUI extends JFrame {
 	private JLabel[][] matrizTetriSig;
 	private JLabel lblConTiempo;
 	private JLabel lblConPuntuacion;
+	JLabel lblFinPartida;
 	
 	private Font mainFont;
 	
@@ -138,9 +139,17 @@ public class GUI extends JFrame {
 	 * cual será el siguiente tetrimino.
 	 */
 	public void actualizarNuevoTetrimino(Tetrimino sigTetri) {
+		//Vaciar labels de tetrimino siguiente
+		for(int fila=0; fila<FILAS_TETRISIG; fila++) {
+			for(int col=0; col<COL_TETRISIG; col++) {
+				matrizTetriSig[col][fila].setIcon(reEscalar("/images/bloqueVacio.png"));
+			}
+		}
+		
+		//imprimir el tetrimino siguiente
 		ImageIcon icono = reEscalar(sigTetri.getImage());
 		for(Bloque bloq : sigTetri.getBloquesTetrimino()) {
-			matrizTetriSig[bloq.getPosX()-2][bloq.getPosY()].setIcon(icono);
+			matrizTetriSig[bloq.getPosX()-1][bloq.getPosY()].setIcon(icono);
 		}
 	}
 	
@@ -171,12 +180,17 @@ public class GUI extends JFrame {
 		ImageIcon img = new ImageIcon(GUI.class.getResource(dirImg));
 		Image imgResized = img.getImage().getScaledInstance(TAM_CELDA, TAM_CELDA, Image.SCALE_SMOOTH);
 		return new ImageIcon(imgResized);
-	}
-	
+	}		
 	/**
 	 * Metodo que muestra la pantalla final del juego, la cual
 	 * incluye la puntuacion obtenida y el tiempo transcurrido
 	 */
+	
+	public void mostrarPantallaFinal() {
+		lblFinPartida.setText("GAME OVER");
+	}
+	
+	/*
 	public void mostrarPantallaFinal() {
 		JPanel endScreen = new JPanel();
 		contentPane.setVisible(false);
@@ -247,7 +261,6 @@ public class GUI extends JFrame {
 					.addContainerGap(102, Short.MAX_VALUE))
 		);
 		endScreen.setLayout(gl_endScreen);
-		
 		setContentPane(endScreen);
 	}
 	
@@ -278,6 +291,10 @@ public class GUI extends JFrame {
 		
 		tableroTetriSiguiente = new JPanel();
 		
+		lblFinPartida = new JLabel("");
+		lblFinPartida.setFont(mainFont);
+		lblFinPartida.setForeground(Color.RED);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -295,7 +312,9 @@ public class GUI extends JFrame {
 								.addComponent(lblSiguiente, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE))
 							.addGap(7))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(tableroTetriSiguiente, GroupLayout.PREFERRED_SIZE, COL_TETRISIG*TAM_CELDA, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(lblFinPartida, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(tableroTetriSiguiente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
 							.addContainerGap())))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -314,7 +333,9 @@ public class GUI extends JFrame {
 							.addGap(57)
 							.addComponent(lblSiguiente, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tableroTetriSiguiente, GroupLayout.PREFERRED_SIZE, FILAS_TETRISIG*TAM_CELDA, GroupLayout.PREFERRED_SIZE))
+							.addComponent(tableroTetriSiguiente, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblFinPartida, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
 						.addComponent(tableroDeJuego, GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE))
 					.addGap(13))
 		);

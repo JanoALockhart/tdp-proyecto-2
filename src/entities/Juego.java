@@ -112,7 +112,9 @@ public class Juego {
 	 * Metodo que llama a los metodos correspondientes de 
 	 * otras clases cuando el jugador pierde
 	 */
-	public void perder() {
+	public void perder() {		
+		
+		temporizador.detener();
 		interfazGrafica.mostrarPantallaFinal();	
 	}
 	
