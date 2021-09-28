@@ -139,19 +139,44 @@ public class Grilla {
 	}
 	
 	/**
-	 * Este método se encarga de destruir el tetrimino actual,
-	 * y solidificarlo con el resto de los bloques.
+	 * Este método se encarga de cambiar el tetrimino actual
+	 * por el tetrimino siguiente y si este nuevo tetrimino
+	 * puede ocupar sus posiciones. En caso de que no pueda, 
+	 * el juego termina
 	 */	
 	private void solidificarTetrimino() {
-		//generarNuevoTetrimino(0);
 		miTetriminoActual = miTetriminoSiguiente;
-		miTetriminoActual.inicializarTetrimino();
-		miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
+		if(puedeInicializar(miTetriminoActual)){
+			miTetriminoActual.inicializarTetrimino();
+			miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
+			
+			miTetriminoSiguiente = new Ele(this);
+			miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
+		}else{
+			System.out.println("perdiste");
+			miJuego.perder();
+		}
+	}
 	
-		miTetriminoSiguiente = new Ele(this);
-		miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
-		
-		//generarNuevoTetrimino(0);
+	/**
+	 * Verifica si la posicion que ocupa el tetrimino no inicializado
+	 * puede ocupar los bloques a los que apunta
+	 * @param tetri Es un tetrimino que todavia no esta incializado y 
+	 * se quiere verificar que puede hacerlo.
+	 * @return true si las posiciones a las que apunta estan libres,
+	 * false en caso contrario
+	 */
+	boolean puedeInicializar(Tetrimino tetri){
+		boolean puede = true;
+
+		for(Bloque bloq : tetri.getBloquesTetrimino()){
+			if(bloq.isOcupado()){
+				puede = false;
+				break;
+			}
+		}
+
+		return puede;
 	}
 	
 	/**
@@ -165,15 +190,8 @@ public class Grilla {
 		int max=0;
 		Iterable<Bloque> bloquesDelTetri = tetri.getBloquesTetrimino();
 
-		for (Bloque b : bloquesDelTetri) {
-			for(int col = 0; col < misBloques.length && ocupado; col++) {
-				
-				//System.out.println("Chauuuuuuuuuuuu");
-				if(!misBloques[col][b.getPosY()].isOcupado()) {
-					ocupado = false;
-				}
-			}
-			if(ocupado) {
+		for (Bloque b : bloquesDelTetri) {		
+			if(lineaLlena(b.getPosY())) {
 				romperLineas(b.getPosY());
 				filasRotas++;
 				max=b.getPosY()>max?b.getPosY():max;
@@ -185,6 +203,26 @@ public class Grilla {
 			bajarLineas(max);
 		}
 	}
+	
+	/**
+	 * Metodo que verifica si todas las celdas de una fila 
+	 * estan ocupadas.
+	 * @param fila Es el numero de la fila que se quiere verificar
+	 * @return true si la linea esta llena, false
+	 */
+	private boolean lineaLlena(int fila) {
+		boolean ocupado = true;
+		
+		for(int col = 0; col < misBloques.length && ocupado; col++) {
+			if(!misBloques[col][fila].isOcupado()) {
+				ocupado = false;
+			}
+		}
+		
+		return ocupado;
+	}
+	
+	
 	/**
 	 * Este método se encarga de romper toda una fila,
 	 * osea que recorre todos lo bloques de una fila y los pone en desocupados.
@@ -220,16 +258,5 @@ public class Grilla {
 		miJuego.actualizarGUI(listaDeGuardado);
 	}
 	
-	/*
-	 *Verifica que las posiciones que ocupara el nuevo tetrimino
-	 *esten libres, si no estan libres, grilla llama a Juego.perder()
-	 */
-	private void generarNuevoTetrimino(int num) {
-		for(int col = 0; col < misBloques.length; col++) {
-			if(misBloques[col][num].isOcupado()) {
-				miJuego.perder();
-				break;
-			}
-		}
-	}
+	
 }
