@@ -8,13 +8,9 @@ public class Te extends Tetrimino {
 		img = "/images/bloqueNaranja.png";
 		this.miGrilla = miGrilla;
 		pivote = miGrilla.getBloque(4, 1);
-		pivote.ocupar(img);
 		A = miGrilla.getBloque(3, 1);
-		A.ocupar(img);
 		B = miGrilla.getBloque(4, 0);
-		B.ocupar(img);
 		C = miGrilla.getBloque(5, 1);
-		C.ocupar(img);
 		angulo = 0;
 		
 	}

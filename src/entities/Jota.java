@@ -9,13 +9,9 @@ public class Jota extends Tetrimino {
 		this.miGrilla = miGrilla;
 		img = "/images/bloqueVerde.png"; 
 		pivote = miGrilla.getBloque(3, 1);
-		pivote.ocupar(img);
 		A =  miGrilla.getBloque(3, 0);
-		A.ocupar(img);
 		B =  miGrilla.getBloque(3, 2);
-		B.ocupar(img);
 		C =  miGrilla.getBloque(2, 2);
-		C.ocupar(img);
 		angulo = 0;
 	}
 	

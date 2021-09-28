@@ -8,13 +8,9 @@ public class Barra extends Tetrimino {
 		img = "/images/bloqueAzul.png";
 		this.miGrilla = miGrilla;
 		pivote = miGrilla.getBloque(4, 0);
-		pivote.ocupar(img);
 		A =  miGrilla.getBloque(3, 0);
-		A.ocupar(img);
 		B =  miGrilla.getBloque(5, 0);
-		B.ocupar(img);
 		C =  miGrilla.getBloque(6, 0);
-		C.ocupar(img);
 		angulo = 0;
 	}
 	

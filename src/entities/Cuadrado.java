@@ -8,13 +8,9 @@ public class Cuadrado extends Tetrimino{
 		img = "/images/bloqueAmarillo.png";
 		this.miGrilla = miGrilla;
 		pivote = miGrilla.getBloque(4,0);
-		pivote.ocupar(img);
 		A = miGrilla.getBloque(5,0);
-		A.ocupar(img);
 		B = miGrilla.getBloque(4,1);
-		B.ocupar(img);
 		C = miGrilla.getBloque(5,1);
-		C.ocupar(img);
 		angulo = 0;
 	}
 	

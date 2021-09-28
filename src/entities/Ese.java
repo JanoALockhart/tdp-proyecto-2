@@ -9,13 +9,9 @@ public class Ese extends Tetrimino{
 		img = "/images/bloqueGris.png";
 		this.miGrilla = miGrilla;
 		pivote = miGrilla.getBloque(3, 1);
-		pivote.ocupar(img);
 		A =  miGrilla.getBloque(2, 1);
-		A.ocupar(img);
 		B =  miGrilla.getBloque(4, 0);
-		B.ocupar(img);
 		C =  miGrilla.getBloque(3, 0);
-		C.ocupar(img);
 		angulo = 0;
 	}
 

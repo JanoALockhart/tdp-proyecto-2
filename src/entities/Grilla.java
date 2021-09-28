@@ -21,9 +21,9 @@ public class Grilla {
 		
 		this.miJuego = miJuego;
 		this.miFabrica = new FabricaTetriminos(this);
-		miTetriminoActual = new Ese(this);
+		miTetriminoActual = miFabrica.generarNuevoTetrimino();
 		miTetriminoActual.inicializarTetrimino();
-		miTetriminoSiguiente = new Ese(this);
+		miTetriminoSiguiente = miFabrica.generarNuevoTetrimino();
 		miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
 		this.miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 	}
@@ -150,10 +150,9 @@ public class Grilla {
 			miTetriminoActual.inicializarTetrimino();
 			miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 			
-			miTetriminoSiguiente = new Ele(this);
+			miTetriminoSiguiente = miFabrica.generarNuevoTetrimino();
 			miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
 		}else{
-			System.out.println("perdiste");
 			miJuego.perder();
 		}
 	}
@@ -185,9 +184,8 @@ public class Grilla {
 	 * @param tetri: es el tetrimino actual 
 	 */
 	private void verificarLineas(Tetrimino tetri) {
-		boolean ocupado = true;
 		int filasRotas=0;
-		int max=0;
+		int max=0; //es el numero de la fila mas baja rota hasta el momento
 		Iterable<Bloque> bloquesDelTetri = tetri.getBloquesTetrimino();
 
 		for (Bloque b : bloquesDelTetri) {		
@@ -196,11 +194,10 @@ public class Grilla {
 				filasRotas++;
 				max=b.getPosY()>max?b.getPosY():max;
 			}
-			ocupado = true;
 		}
 		if(filasRotas>0) {
 			miJuego.addScore(filasRotas);
-			bajarLineas(max);
+			bajarLineas(max,filasRotas);
 		}
 	}
 	
@@ -230,32 +227,56 @@ public class Grilla {
 	 */
 	private void  romperLineas(int fila) {
 		List<Bloque> guardado = new LinkedList<Bloque>();
-		//System.out.println("holaaaaaaaaaaaaaaaaaaaa");
 		for(int col = 0; col < misBloques.length; col++) {
 			guardado.add(misBloques[col][fila]);
 			misBloques[col][fila].desocupar();
 		}
 		miJuego.actualizarGUI(guardado);
-		System.out.println(fila);
 	}
 	/**
 	 * Este método se encarga de ir bajando las filas, 
 	 * una vez que se rompe la fila que le pasan por parámetro.
 	 * @param filaRota: es la fila que se acaba de romper.
 	 */
-	private void bajarLineas(int filaRota) {
-		List<Bloque> listaDeGuardado = new LinkedList<Bloque>();		
-		for(int fila = filaRota; fila > 0; fila--) {
+	private void bajarLineas(int filaRota, int cantRotas) {
+		List<Bloque> listaDeGuardado = new LinkedList<Bloque>();	
+		int fila;
+		//Bajar los bloques que quedaron en el aire
+		for(fila = filaRota; fila > cantRotas-1 && hayEnFila(fila-cantRotas); fila--) {
 			for(int col = 0; col < misBloques.length; col++) {
-				if(misBloques[col][fila-1].isOcupado()) {
-					misBloques[col][fila].ocupar(misBloques[col][fila-1].getDirImagen());;
-					misBloques[col][fila-1].desocupar();
-					listaDeGuardado.add(misBloques[col][fila-1]);
+				if(misBloques[col][fila-cantRotas].isOcupado()) {
+					misBloques[col][fila].ocupar(misBloques[col][fila-cantRotas].getDirImagen());;
+					misBloques[col][fila-cantRotas].desocupar();
 					listaDeGuardado.add(misBloques[col][fila]);
 				}
 			}
 		}
+		
+		//Agregar las filas que faltan actualizar por encima de los bloques que habian
+		//quedado en el aire
+		for(int filasFaltan = fila; filasFaltan>=fila-cantRotas; filasFaltan-- ) {
+			for(int col=0; col<misBloques.length; col++){
+				listaDeGuardado.add(misBloques[col][filasFaltan]);
+			}
+		}
+		
 		miJuego.actualizarGUI(listaDeGuardado);
+	}
+	
+	/**
+	 * Metodo que verifica si la fila indicada por parámetro
+	 * esta vacia o no
+	 * @param fila Es el numero de fila que se quiere verificar
+	 * @return true si la fila tiene algun bloque, false si esta vacia.
+	 */
+	private boolean hayEnFila(int fila){
+		boolean hay = false;
+
+		for(int col=0; col<misBloques.length && !hay; col++){
+			hay = misBloques[col][fila].isOcupado();
+		}
+
+		return hay;
 	}
 	
 	

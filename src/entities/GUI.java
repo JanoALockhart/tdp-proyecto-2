@@ -91,9 +91,6 @@ public class GUI extends JFrame {
 		tableroTetriSiguiente.setLayout(new GridLayout(FILAS_TETRISIG, COL_TETRISIG, 0, 0));
 		contentPane.setLayout(elementos);
 		
-//		//Crear Juego
-//		juego = new Juego(this);
-		
 		inicializarCeldasTableroJuego();
 		inicializarCeldasTableroTetriSiguiente();
 		
@@ -104,7 +101,6 @@ public class GUI extends JFrame {
 				switch (teclaApretada.getKeyCode()) {
 					case KeyEvent.VK_D:{
 						juego.operarJuego(Juego.MOVER_DERECHA);
-						mostrarPantallaFinal();
 						break;
 					}
 					case KeyEvent.VK_A:{
@@ -194,80 +190,6 @@ public class GUI extends JFrame {
 		dispose();
 	}
 	
-	/*
-	public void mostrarPantallaFinal() {
-		JPanel endScreen = new JPanel();
-		contentPane.setVisible(false);
-		endScreen.setBackground(Color.BLACK);
-		
-		JLabel lblGameOver = new JLabel("GAME OVER");
-		lblGameOver.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGameOver.setForeground(Color.WHITE);
-		lblGameOver.setFont(mainFont);
-		
-		JLabel lblPuntuacion = new JLabel("PUNTUACION");
-		lblPuntuacion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPuntuacion.setForeground(Color.WHITE);
-		lblPuntuacion.setFont(mainFont);
-		
-		JLabel lblTiempo = new JLabel("TIEMPO");
-		lblTiempo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTiempo.setForeground(Color.WHITE);
-		lblTiempo.setFont(mainFont);
-		
-		JLabel lblConPuntuacionES = new JLabel(lblConPuntuacion.getText());
-		lblConPuntuacionES.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConPuntuacionES.setForeground(Color.WHITE);
-		lblConPuntuacionES.setFont(mainFont);
-		
-		JLabel lblConTiempoES = new JLabel(lblConTiempo.getText());
-		lblConTiempoES.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConTiempoES.setForeground(Color.WHITE);
-		lblConTiempoES.setFont(mainFont);
-		GroupLayout gl_endScreen = new GroupLayout(endScreen);
-		gl_endScreen.setHorizontalGroup(
-			gl_endScreen.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
-					.addGap(58)
-					.addGroup(gl_endScreen.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblGameOver, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 10, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblTiempo, GroupLayout.PREFERRED_SIZE, 359, GroupLayout.PREFERRED_SIZE)
-							.addGap(10))
-						.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 10, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblConTiempoES, GroupLayout.PREFERRED_SIZE, 359, GroupLayout.PREFERRED_SIZE)
-							.addGap(10))
-						.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 10, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblConPuntuacionES, GroupLayout.PREFERRED_SIZE, 359, GroupLayout.PREFERRED_SIZE)
-							.addGap(10))
-						.addGroup(Alignment.TRAILING, gl_endScreen.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 10, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblPuntuacion, GroupLayout.PREFERRED_SIZE, 359, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)))
-					.addGap(39))
-		);
-		gl_endScreen.setVerticalGroup(
-			gl_endScreen.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_endScreen.createSequentialGroup()
-					.addGap(44)
-					.addComponent(lblGameOver)
-					.addGap(62)
-					.addComponent(lblPuntuacion, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblConPuntuacionES, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-					.addGap(78)
-					.addComponent(lblTiempo, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblConTiempoES, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(102, Short.MAX_VALUE))
-		);
-		endScreen.setLayout(gl_endScreen);
-		setContentPane(endScreen);
-	}
-	
 	/**
 	 * Metodo que crea el tablero en el cual estara el tetrimino
 	 * actual y los bloques solidificados, coloca los labels
@@ -284,10 +206,10 @@ public class GUI extends JFrame {
 		lblConTiempo = new JLabel("00:00");
 		lblConTiempo.setFont(mainFont);
 		
-		JLabel lblPuntuacion = new JLabel("PUNTUACION\r\n");
+		JLabel lblPuntuacion = new JLabel("PUNTUACIONs");
 		lblPuntuacion.setFont(mainFont);
 		
-		lblConPuntuacion = new JLabel("0000000");
+		lblConPuntuacion = new JLabel("0");
 		lblConPuntuacion.setFont(mainFont);
 		
 		JLabel lblSiguiente = new JLabel("SIGUIENTE");
