@@ -104,6 +104,7 @@ public class GUI extends JFrame {
 				switch (teclaApretada.getKeyCode()) {
 					case KeyEvent.VK_D:{
 						juego.operarJuego(Juego.MOVER_DERECHA);
+						mostrarPantallaFinal();
 						break;
 					}
 					case KeyEvent.VK_A:{
@@ -188,6 +189,9 @@ public class GUI extends JFrame {
 	
 	public void mostrarPantallaFinal() {
 		lblFinPartida.setText("GAME OVER");
+		PantallaFinal endScreen = new PantallaFinal(lblConPuntuacion.getText(),lblConTiempo.getText());
+		endScreen.setVisible(true);
+		dispose();
 	}
 	
 	/*
