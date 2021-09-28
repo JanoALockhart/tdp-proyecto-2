@@ -206,7 +206,7 @@ public class GUI extends JFrame {
 		lblConTiempo = new JLabel("00:00");
 		lblConTiempo.setFont(mainFont);
 		
-		JLabel lblPuntuacion = new JLabel("PUNTUACIONs");
+		JLabel lblPuntuacion = new JLabel("PUNTUACION");
 		lblPuntuacion.setFont(mainFont);
 		
 		lblConPuntuacion = new JLabel("0");
@@ -233,10 +233,10 @@ public class GUI extends JFrame {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblTiempo, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
 								.addComponent(lblConTiempo, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPuntuacion, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblConPuntuacion, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblSiguiente, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE))
-							.addGap(7))
+								.addComponent(lblSiguiente, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPuntuacion))
+							.addContainerGap())
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(lblFinPartida, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

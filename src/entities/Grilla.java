@@ -21,13 +21,20 @@ public class Grilla {
 		
 		this.miJuego = miJuego;
 		this.miFabrica = new FabricaTetriminos(this);
-		miTetriminoActual = miFabrica.generarNuevoTetrimino();
+		miTetriminoActual = miFabrica.generarNuevoTetrimino(); //TODO cambiar a un tetri especifico para testear
 		miTetriminoActual.inicializarTetrimino();
-		miTetriminoSiguiente = miFabrica.generarNuevoTetrimino();
+		miTetriminoSiguiente = miFabrica.generarNuevoTetrimino();///TODO cambiar a un tetri especifico para testear
 		miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
 		this.miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 	}
 	
+	/**
+	 * Metodo que devuelve el bloque de la grilla que 
+	 * corresponde a la columa y fila indicada por parametro
+	 * @param c Es la columna en la que esta el bloque
+	 * @param f Es la fila en la que esta el bloque
+	 * @return El bloque que esta en la columna c y en la fila f
+	 */
 	public Bloque getBloque(int c, int f) {
 		Bloque ret=null;
 		if(0<=c && c<=9 && 0<=c && c<=20) {
@@ -150,7 +157,7 @@ public class Grilla {
 			miTetriminoActual.inicializarTetrimino();
 			miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
 			
-			miTetriminoSiguiente = miFabrica.generarNuevoTetrimino();
+			miTetriminoSiguiente = miFabrica.generarNuevoTetrimino();//TODO cambiar a un tetri especifico para testear
 			miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
 		}else{
 			miJuego.perder();
@@ -192,7 +199,7 @@ public class Grilla {
 			if(lineaLlena(b.getPosY())) {
 				romperLineas(b.getPosY());
 				filasRotas++;
-				max=b.getPosY()>max?b.getPosY():max;
+				max = b.getPosY()>max ? b.getPosY():max;
 			}
 		}
 		if(filasRotas>0) {
@@ -228,8 +235,8 @@ public class Grilla {
 	private void  romperLineas(int fila) {
 		List<Bloque> guardado = new LinkedList<Bloque>();
 		for(int col = 0; col < misBloques.length; col++) {
-			guardado.add(misBloques[col][fila]);
 			misBloques[col][fila].desocupar();
+			guardado.add(misBloques[col][fila]);
 		}
 		miJuego.actualizarGUI(guardado);
 	}
@@ -241,22 +248,16 @@ public class Grilla {
 	private void bajarLineas(int filaRota, int cantRotas) {
 		List<Bloque> listaDeGuardado = new LinkedList<Bloque>();	
 		int fila;
+		
 		//Bajar los bloques que quedaron en el aire
-		for(fila = filaRota; fila > cantRotas-1 && hayEnFila(fila-cantRotas); fila--) {
+		for(fila = filaRota; fila-cantRotas>=0 && hayEnFila(fila-cantRotas); fila--) {
 			for(int col = 0; col < misBloques.length; col++) {
 				if(misBloques[col][fila-cantRotas].isOcupado()) {
 					misBloques[col][fila].ocupar(misBloques[col][fila-cantRotas].getDirImagen());;
 					misBloques[col][fila-cantRotas].desocupar();
+					listaDeGuardado.add(misBloques[col][fila-cantRotas]);
 					listaDeGuardado.add(misBloques[col][fila]);
 				}
-			}
-		}
-		
-		//Agregar las filas que faltan actualizar por encima de los bloques que habian
-		//quedado en el aire
-		for(int filasFaltan = fila; filasFaltan>=fila-cantRotas; filasFaltan-- ) {
-			for(int col=0; col<misBloques.length; col++){
-				listaDeGuardado.add(misBloques[col][filasFaltan]);
 			}
 		}
 		
