@@ -158,7 +158,6 @@ public class Grilla {
 		}
 	}
 	
-
 	/**
 	 * Verifica si la posicion que ocupa el tetrimino no inicializado
 	 * puede ocupar los bloques a los que apunta
