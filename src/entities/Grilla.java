@@ -9,7 +9,7 @@ public class Grilla {
 	protected Tetrimino miTetriminoActual;
 	protected Tetrimino miTetriminoSiguiente;
 	protected Bloque misBloques[][];
-	protected FabricaTetriminos miFacbrica;
+	protected FabricaTetriminos miFabrica;
 	
 	public Grilla(Juego miJuego) {
 		misBloques = new Bloque[10][21];
@@ -20,7 +20,7 @@ public class Grilla {
 		}
 		
 		this.miJuego = miJuego;
-		this.miFacbrica = new FabricaTetriminos(this);
+		this.miFabrica = new FabricaTetriminos(this);
 		miTetriminoActual = new Ele(this);
 		miTetriminoActual.inicializarTetrimino();
 		miTetriminoSiguiente = new Ele(this);
@@ -107,8 +107,7 @@ public class Grilla {
 			bloquesAnteriores=miTetriminoActual.rotar();
 			miJuego.actualizarGUI(bloquesAnteriores);
 			miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
-			System.out.println("bbb");
-		}else System.out.println("aaa");
+		}
 	}
 	
 	/**
@@ -148,7 +147,7 @@ public class Grilla {
 		miTetriminoActual = miTetriminoSiguiente;
 		miTetriminoActual.inicializarTetrimino();
 		miJuego.actualizarGUI(miTetriminoActual.getBloquesTetrimino());
-		
+	
 		miTetriminoSiguiente = new Ele(this);
 		miJuego.actualizarTetriSiguiente(miTetriminoSiguiente);
 		
@@ -165,18 +164,17 @@ public class Grilla {
 		int filasRotas=0;
 		Iterable<Bloque> bloquesDelTetri = tetri.getBloquesTetrimino();
 
-		
 		for (Bloque b : bloquesDelTetri) {
-			for(int col = 0; col < misBloques.length; col++) {
+			for(int col = 0; col < misBloques.length && ocupado; col++) {
 				
-				System.out.println("Chauuuuuuuuuuuu");
+				//System.out.println("Chauuuuuuuuuuuu");
 				if(!misBloques[col][b.getPosY()].isOcupado()) {
 					ocupado = false;
-					break;
 				}
 			}
 			if(ocupado) {
 				romperLineas(b.getPosY());
+				bajarLineas(b.getPosY());
 				filasRotas++;
 			}
 			ocupado = true;
@@ -190,14 +188,13 @@ public class Grilla {
 	 */
 	private void  romperLineas(int fila) {
 		List<Bloque> guardado = new LinkedList<Bloque>();
-		System.out.println("holaaaaaaaaaaaaaaaaaaaa");
+		//System.out.println("holaaaaaaaaaaaaaaaaaaaa");
 		for(int col = 0; col < misBloques.length; col++) {
 			guardado.add(misBloques[col][fila]);
 			misBloques[col][fila].desocupar();
 		}
 		miJuego.actualizarGUI(guardado);
 		System.out.println(fila);
-		//bajarLineas(fila);
 	}
 	/**
 	 * Este método se encarga de ir bajando las filas, 
@@ -206,11 +203,12 @@ public class Grilla {
 	 */
 	private void bajarLineas(int filaRota) {
 		List<Bloque> listaDeGuardado = new LinkedList<Bloque>();		
-		for(int fila = filaRota; fila > 1; fila--) {
+		for(int fila = filaRota; fila > 0; fila--) {
 			for(int col = 0; col < misBloques.length; col++) {
-				if(misBloques[col][fila--].isOcupado()) {
-					misBloques[col][fila].ocupar(misBloques[col][fila--].getDirImagen());;
-					misBloques[col][fila--].desocupar();
+				if(misBloques[col][fila-1].isOcupado()) {
+					misBloques[col][fila].ocupar(misBloques[col][fila-1].getDirImagen());;
+					misBloques[col][fila-1].desocupar();
+					listaDeGuardado.add(misBloques[col][fila-1]);
 					listaDeGuardado.add(misBloques[col][fila]);
 				}
 			}
@@ -223,7 +221,7 @@ public class Grilla {
 	 *esten libres, si no estan libres, grilla llama a Juego.perder()
 	 */
 	private void generarNuevoTetrimino(int num) {
-		for(int col = 0; col < misBloques[0].length-1; col++) {
+		for(int col = 0; col < misBloques.length; col++) {
 			if(misBloques[col][num].isOcupado()) {
 				miJuego.perder();
 				break;

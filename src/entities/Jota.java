@@ -37,7 +37,7 @@ public class Jota extends Tetrimino {
 						break;
 			case 270:	lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));
 						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));
-						lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()-1));
+						lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()+1));
 						break;
 		}
 		return lista;
@@ -132,7 +132,7 @@ public class Jota extends Tetrimino {
 						break;
 			case 270:	A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()-1);
 						B = moverBloqueAPos(B, pivote.getPosX(), pivote.getPosY()+1);
-						C = moverBloqueAPos(C, pivote.getPosX()-1, pivote.getPosY()-1);
+						C = moverBloqueAPos(C, pivote.getPosX()-1, pivote.getPosY()+1);
 						angulo = 0;
 						break;			
 		}
