@@ -23,6 +23,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
+import java.awt.Toolkit;
 
 public class GUI extends JFrame {
 	
@@ -71,10 +72,14 @@ public class GUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI() {
+		setTitle("Tetris Comision 9");
+		setBackground(Color.BLACK);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GUI.class.getResource("/images/bloqueRojo.png")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 700);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
@@ -201,18 +206,23 @@ public class GUI extends JFrame {
 		tableroDeJuego.setBorder(new LineBorder(Color.BLACK));
 		
 		JLabel lblTiempo = new JLabel("TIEMPO");
+		lblTiempo.setForeground(Color.WHITE);
 		lblTiempo.setFont(mainFont);
 		
 		lblConTiempo = new JLabel("00:00");
+		lblConTiempo.setForeground(Color.WHITE);
 		lblConTiempo.setFont(mainFont);
 		
 		JLabel lblPuntuacion = new JLabel("PUNTUACION");
+		lblPuntuacion.setForeground(Color.WHITE);
 		lblPuntuacion.setFont(mainFont);
 		
 		lblConPuntuacion = new JLabel("0");
+		lblConPuntuacion.setForeground(Color.WHITE);
 		lblConPuntuacion.setFont(mainFont);
 		
 		JLabel lblSiguiente = new JLabel("SIGUIENTE");
+		lblSiguiente.setForeground(Color.WHITE);
 		lblSiguiente.setFont(mainFont);
 		
 		tableroTetriSiguiente = new JPanel();

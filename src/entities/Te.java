@@ -25,8 +25,8 @@ public class Te extends Tetrimino {
 		case 180:	lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));
 					break;
 		case 270:	lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()));
-					lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));
-					lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));
+					//lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));
+					//lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));
 					break;
 		}
 		return lista;
