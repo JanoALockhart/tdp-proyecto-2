@@ -18,13 +18,15 @@ public class Te extends Tetrimino {
 	public List<Bloque> getBloquesParaRotar() {
 		List<Bloque> lista = new LinkedList<Bloque>();
 		switch(angulo) {
-		case 0 : 	lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));
+		case 0 : 	lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));
 			 		break;
 		case 90: 	lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));
 					break;
-		case 180:	lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));
+		case 180:	lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));
 					break;
 		case 270:	lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()));
+					lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));
+					lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));
 					break;
 		}
 		return lista;
@@ -104,18 +106,18 @@ public class Te extends Tetrimino {
 			listaAnteriores.add(miGrilla.getBloque(bloq.getPosX(),bloq.getPosY()));
 		}
 		switch(angulo) {
-		case 0 :	C = moverBloqueAPos(C, pivote.getPosX(), pivote.getPosY()-1);
+		case 0 :	C = moverBloqueAPos(C, pivote.getPosX(), pivote.getPosY()+1);
 					angulo = 90;
 					break;
 		case 90:	B = moverBloqueAPos(B, pivote.getPosX()+1, pivote.getPosY());
 					angulo = 180;
 					break;
-		case 180:	A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()+1);
+		case 180:	A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()-1);
 					angulo = 270;
 					break;
 		case 270:	A = moverBloqueAPos(A, pivote.getPosX()-1, pivote.getPosY());
-					B = moverBloqueAPos(B, pivote.getPosX(), pivote.getPosY()+1);
-					C = moverBloqueAPos(C, pivote.getPosX()+1, pivote.getPosY());
+					B = moverBloqueAPos(B, pivote.getPosX(), pivote.getPosY()-1);
+					C = moverBloqueAPos(C, pivote.getPosX()+1, pivote.getPosY());	
 					angulo = 0;
 					break;
 		

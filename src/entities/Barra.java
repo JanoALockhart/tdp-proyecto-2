@@ -22,9 +22,9 @@ public class Barra extends Tetrimino {
 						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));//B
 						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+2));//C
 						break;
-			case 90:	lista.add(miGrilla.getBloque(pivote.getPosX()-2, pivote.getPosY()));//B
+			case 90:	lista.add(miGrilla.getBloque(pivote.getPosX()-2, pivote.getPosY()));//A
 						lista.add(miGrilla.getBloque(pivote.getPosX()-1, pivote.getPosY()));//C
-						lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));//A
+						lista.add(miGrilla.getBloque(pivote.getPosX()+1, pivote.getPosY()));//B
 						break;
 			case 180:	lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()+1));//A
 						lista.add(miGrilla.getBloque(pivote.getPosX(), pivote.getPosY()-1));//C
@@ -91,14 +91,14 @@ public class Barra extends Tetrimino {
 						lista.add(B);
 						lista.add(C);
 						break;
-			case 90:	lista.add(A);
+			case 90:	lista.add(C);
 						break;
 			case 180:	lista.add(B);
 						lista.add(C);
 						lista.add(pivote);
 						lista.add(A);
 						break;
-			case 270:   lista.add(B);
+			case 270:   lista.add(A);
 			  			break;
 		}
 		return lista;
@@ -117,8 +117,8 @@ public class Barra extends Tetrimino {
 						angulo = 90;
 						break;
 			case 90:	A = moverBloqueAPos(A, pivote.getPosX()+1, pivote.getPosY());
-						B = moverBloqueAPos(B, pivote.getPosX()-2, pivote.getPosY());
-						C = moverBloqueAPos(C, pivote.getPosX()-1, pivote.getPosY());
+						C = moverBloqueAPos(C, pivote.getPosX()-2, pivote.getPosY());
+						B = moverBloqueAPos(B, pivote.getPosX()-1, pivote.getPosY());
 						angulo = 180;
 						break;
 			case 180:	A = moverBloqueAPos(A, pivote.getPosX(), pivote.getPosY()+1);

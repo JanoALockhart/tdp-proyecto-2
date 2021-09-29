@@ -37,7 +37,7 @@ public class Grilla {
 	 */
 	public Bloque getBloque(int c, int f) {
 		Bloque ret=null;
-		if(0<=c && c<=9 && 0<=c && c<=20) {
+		if(0<=c && c<=9 && 0<=f && f<=20) {
 			ret=misBloques[c][f];
 		}
 		return ret;
