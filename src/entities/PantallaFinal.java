@@ -18,6 +18,7 @@ import java.io.InputStream;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.JLayeredPane;
+import java.awt.Toolkit;
 
 public class PantallaFinal extends JFrame {
 
@@ -28,6 +29,8 @@ public class PantallaFinal extends JFrame {
 	 * Create the frame.
 	 */
 	public PantallaFinal(String puntuacion, String tiempo) {
+		setTitle("GAME OVER");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaFinal.class.getResource("/images/bloqueMagenta.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 720);
 		endScreen = new JPanel();

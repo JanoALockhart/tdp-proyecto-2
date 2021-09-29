@@ -65,9 +65,9 @@ public class Timer {
 			try {
 				Thread.sleep(velocidadTime);
 				miJuego.operarJuego(Juego.MOVER_ABAJO);
-				if(Math.log10(tiempoTranscurrido)>contador) {
+				if(tiempoTranscurrido/15>contador && velocidadTime>100) {
 					contador++;
-					velocidadTime=velocidadTime/2;
+					velocidadTime=velocidadTime-80;
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
