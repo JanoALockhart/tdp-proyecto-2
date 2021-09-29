@@ -68,7 +68,7 @@ public class Ese extends Tetrimino{
 			case 0 :	lista.add(A);
 						lista.add(C);
 					  	break;
-			case 90:	lista.add(A);
+			case 90:	lista.add(C);
 						lista.add(B);
 						lista.add(pivote);
 						break;
