@@ -200,11 +200,12 @@ public class Grilla {
 				romperLineas(b.getPosY());
 				filasRotas++;
 				max = b.getPosY()>max ? b.getPosY():max;
+				
 			}
 		}
 		if(filasRotas>0) {
 			miJuego.addScore(filasRotas);
-			bajarLineas(max,filasRotas);
+			bajarLineasConAlgo();
 		}
 	}
 	
@@ -240,28 +241,63 @@ public class Grilla {
 		}
 		miJuego.actualizarGUI(guardado);
 	}
+	
 	/**
-	 * Este método se encarga de ir bajando las filas, 
-	 * una vez que se rompe la fila que le pasan por parámetro.
-	 * @param filaRota: es la fila que se acaba de romper.
+	 * Este metodo se encarga de que por cada linea vacia que se encuentre
+	 * se bajen todos los bloques que hay por encima de esa fila un bloque
+	 * hacia abajo
 	 */
-	private void bajarLineas(int filaRota, int cantRotas) {
-		List<Bloque> listaDeGuardado = new LinkedList<Bloque>();	
-		int fila;
+	private void bajarLineasConAlgo() {
+		List<Bloque> guardado = new LinkedList<Bloque>();
+		int fila=misBloques[0].length-1;
 		
-		//Bajar los bloques que quedaron en el aire
-		for(fila = filaRota; fila-cantRotas>=0 && hayEnFila(fila-cantRotas); fila--) {
-			for(int col = 0; col < misBloques.length; col++) {
-				if(misBloques[col][fila-cantRotas].isOcupado()) {
-					misBloques[col][fila].ocupar(misBloques[col][fila-cantRotas].getDirImagen());;
-					misBloques[col][fila-cantRotas].desocupar();
-					listaDeGuardado.add(misBloques[col][fila-cantRotas]);
-					listaDeGuardado.add(misBloques[col][fila]);
+		while(fila>0) {
+			if(!hayEnFila(fila) && quedanBloquesEncima(fila)) {
+				bajarTodoAFila(fila,guardado);
+			}else {
+				fila--;
+			}
+		}
+		miJuego.actualizarGUI(guardado);
+	}
+	
+	/**
+	 * Verifica si por encima de la fila indicada, quedan bloques ocupados
+	 * @param filaAnalizada Es la fila a partir de la cual se analiza por encima
+	 * si hay bloques
+	 * @return true si quedan bloques por encima de la fila, false si no queda ninguno.
+	 */
+	private boolean quedanBloquesEncima(int filaAnalizada) {
+		boolean quedan = false;
+		
+		for(int fila = filaAnalizada-1; fila>=0 && !quedan; fila--) {
+			quedan = hayEnFila(fila);
+		}
+		
+		return quedan;
+	}
+	
+	/**
+	 * Este metodo baja todos los bloques por encima de la fila y se agregan
+	 * en una lista para que sean modificados por la gui
+	 * @param filaVacia Es la fila a partir de la cual se bajan bloques
+	 * @param modificar Es la lista de bloques a modificar en la gui
+	 */
+	private void bajarTodoAFila(int filaVacia, List<Bloque> modificar) {
+		Bloque origen, destino;
+		for(int fila=filaVacia; fila>0; fila--) {
+			for(int col=0; col<misBloques.length; col++) {
+				origen = misBloques[col][fila-1];
+				destino = misBloques[col][fila];
+				
+				if(origen.isOcupado()){
+					destino.ocupar(origen.getDirImagen());
+					origen.desocupar();
+					modificar.add(origen);
+					modificar.add(destino);
 				}
 			}
 		}
-		
-		miJuego.actualizarGUI(listaDeGuardado);
 	}
 	
 	/**
