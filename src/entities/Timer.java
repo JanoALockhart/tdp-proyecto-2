@@ -82,14 +82,6 @@ public class Timer {
 		activo = false;
 	}
 	
-	public Thread getCronometro() {
-		return cronometro;
-	}
-	
-	public Thread getAvisadorCaer() {
-		return avisadorCaer;
-	}
-	
 	/**
 	 * Metodo que retorna un string con el tiempo foromateado.
 	 * @return Un string con el tiempo formateado.
