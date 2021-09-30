@@ -33,8 +33,8 @@ public class Juego {
 	 * parametro, a los puntos ya almacenados.
 	 * @param cant Es la cantidad de puntos que se quieren sumar.
 	 */
-	public void addScore(int cant) {
-		score+=SCOREVALUES[cant-1];
+	public void addScore(int cantFilas) {
+		score+=SCOREVALUES[cantFilas-1];
 		interfazGrafica.actualizarScore(score);
 	}
 	
