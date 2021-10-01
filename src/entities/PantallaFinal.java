@@ -29,6 +29,7 @@ public class PantallaFinal extends JFrame {
 	 * Create the frame.
 	 */
 	public PantallaFinal(String puntuacion, String tiempo) {
+		setResizable(false);
 		setTitle("GAME OVER");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaFinal.class.getResource("/images/bloqueMagenta.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

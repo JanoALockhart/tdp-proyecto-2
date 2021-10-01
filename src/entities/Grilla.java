@@ -11,6 +11,10 @@ public class Grilla {
 	protected Bloque misBloques[][];
 	protected FabricaTetriminos miFabrica;
 	
+	/**
+	 * Constructor de Grilla
+	 * @param miJuego Es el juego al que estara asociado la grilla
+	 */
 	public Grilla(Juego miJuego) {
 		misBloques = new Bloque[10][21];
 		for(int fila = 0; fila < 21; fila++) {
@@ -33,7 +37,8 @@ public class Grilla {
 	 * corresponde a la columa y fila indicada por parametro
 	 * @param c Es la columna en la que esta el bloque
 	 * @param f Es la fila en la que esta el bloque
-	 * @return El bloque que esta en la columna c y en la fila f
+	 * @return El bloque que esta en la columna c y en la fila f.
+	 * Si los parametros ingresados estan fuera de la grilla devuelve null.
 	 */
 	public Bloque getBloque(int c, int f) {
 		Bloque ret=null;
@@ -213,7 +218,7 @@ public class Grilla {
 	 * Metodo que verifica si todas las celdas de una fila 
 	 * estan ocupadas.
 	 * @param fila Es el numero de la fila que se quiere verificar
-	 * @return true si la linea esta llena, false
+	 * @return true si la linea esta llena, false en caso contrario
 	 */
 	private boolean lineaLlena(int fila) {
 		boolean ocupado = true;
@@ -245,7 +250,7 @@ public class Grilla {
 	/**
 	 * Este metodo se encarga de que por cada linea vacia que se encuentre
 	 * se bajen todos los bloques que hay por encima de esa fila un bloque
-	 * hacia abajo
+	 * hacia abajo, hasta que no queden mas bloques por bajar.
 	 */
 	private void bajarLineasConAlgo() {
 		List<Bloque> guardado = new LinkedList<Bloque>();

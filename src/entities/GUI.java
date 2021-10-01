@@ -126,7 +126,7 @@ public class GUI extends JFrame {
 	}
 	/**
 	 * Metodo que cambia la imagen de los labels correspondientes
-	 * en el tablero de la GUI, segun los bloques pasados por parametro.
+	 * en el tablero grande de la GUI, segun los bloques pasados por parametro.
 	 */
 	public void actualizarLabels(Iterable<Bloque> bloquesActualizar) {
 		ImageIcon icono;
@@ -137,7 +137,7 @@ public class GUI extends JFrame {
 	}
 	
 	/**
-	 * Metodo que actualiza el tablero que muestra
+	 * Metodo que actualiza el tablero pequeño que muestra
 	 * cual será el siguiente tetrimino.
 	 */
 	public void actualizarNuevoTetrimino(Tetrimino sigTetri) {
@@ -182,12 +182,12 @@ public class GUI extends JFrame {
 		ImageIcon img = new ImageIcon(GUI.class.getResource(dirImg));
 		Image imgResized = img.getImage().getScaledInstance(TAM_CELDA, TAM_CELDA, Image.SCALE_SMOOTH);
 		return new ImageIcon(imgResized);
-	}		
+	}	
+	
 	/**
 	 * Metodo que muestra la pantalla final del juego, la cual
 	 * incluye la puntuacion obtenida y el tiempo transcurrido
-	 */
-	
+	 */	
 	public void mostrarPantallaFinal() {
 		lblFinPartida.setText("GAME OVER");
 		PantallaFinal endScreen = new PantallaFinal(lblConPuntuacion.getText(),lblConTiempo.getText());
@@ -196,9 +196,8 @@ public class GUI extends JFrame {
 	}
 	
 	/**
-	 * Metodo que crea el tablero en el cual estara el tetrimino
-	 * actual y los bloques solidificados, coloca los labels
-	 * y el contenedor para mostrar el tetrimino siguientes
+	 * Metodo que crea y ubica los distintos labels que se muestran
+	 * por pantalla.
 	 */
 	private GroupLayout colocarElementosGraficos() {
 				
@@ -278,6 +277,10 @@ public class GUI extends JFrame {
 		return gl_contentPane;
 	}
 	
+	/**
+	 * Metodo que se encarga de crear todas las celdas del
+	 * tablero en el que se llevara a cabo el juego.
+	 */
 	private void inicializarCeldasTableroJuego() {
 		matrizLabels = new JLabel[CANT_COL][CANT_FILAS];
 		//Ajustar tamaño magen bloque vacio al tamaño de la celda
@@ -295,6 +298,10 @@ public class GUI extends JFrame {
 		}	
 	}
 	
+	/**
+	 * Metodo que se encarga de crear e insertar las celdas
+	 * del tablero pequeño que muestra el tetrimino siguiente
+	 */
 	private void inicializarCeldasTableroTetriSiguiente() {
 		matrizTetriSig = new JLabel[COL_TETRISIG][FILAS_TETRISIG];
 		

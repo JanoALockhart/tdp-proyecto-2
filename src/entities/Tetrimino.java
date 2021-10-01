@@ -9,29 +9,29 @@ public abstract class Tetrimino {
 	protected int angulo;
 	
 	/**
-	 * Retorna una lista iterable con los bloques que seran cambiados de posicion
-	 * asi pueden ser chequeado por la grilla
+	 * Retorna una lista iterable con los bloques necesarios para
+	 * poder corroborar si se puede rotar
 	 * @return List<Bloque> iterable
 	 */
 	public abstract List<Bloque> getBloquesParaRotar();
 	
 	/**
-	 * *Retorna una lista iterable con los bloques que seran cambiados de posicion
-	 * asi pueden ser chequeado por la grilla
+	 * Retorna una lista iterable con los bloques necesarios para
+	 * poder corroborar si se puede mover a la derecha
 	 * @return List<Bloque> iterable
 	 */
 	public abstract List<Bloque> getBLoquesMasDer();
 	
 	/**
-	 * Retorna una lista iterable con los bloques que seran cambiados de posicion
-	 * asi pueden ser chequeado por la grilla
+	 * Retorna una lista iterable con los bloques necesarios para
+	 * poder corroborar si se puede mover a la izquierda
 	 * @return List<Bloque> iterable
 	 */
 	public abstract List<Bloque> getBLoquesMasIzq();
 	
 	/**
-	* Retorna una lista iterable con los bloques que seran cambiados de posicion
-	 * asi pueden ser chequeado por la grilla
+	 * Retorna una lista iterable con los bloques necesarios para
+	 * poder corroborar si se puede moverse abajo
 	 * @return List<Bloque> iterable
 	 */
 	public abstract List<Bloque> getBLoquesAbajo();
@@ -147,7 +147,7 @@ public abstract class Tetrimino {
 	/**
 	 * Metodo que devuelve la imagen que corresponde
 	 * a los bloques del tetrimino.
-	 * @return
+	 * @return La direccion de la imagen
 	 */
 	public String getImage() {
 		return img;

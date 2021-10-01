@@ -18,6 +18,7 @@ public class Juego {
 	public static final int MOVER_IZQUIERDA = 2;
 	public static final int MOVER_DERECHA = 3;
 	public static final int ROTAR = 4;
+	
 	/**
 	 * Constructor clase juego
 	 */
@@ -29,8 +30,8 @@ public class Juego {
 	}
 	
 	/**
-	 * Metodo que suma una cantidad de puntos, pasado por
-	 * parametro, a los puntos ya almacenados.
+	 * Metodo que suma una cantidad de puntos segun la cantidad
+	 * de fials pasada por parametro.
 	 * @param cant Es la cantidad de puntos que se quieren sumar.
 	 */
 	public void addScore(int cantFilas) {
@@ -84,7 +85,8 @@ public class Juego {
 	
 	/**
 	 * Metodo que envia a la gui los bloques que fueron modificados
-	 * para que la gui cambie los correspondientes labels.
+	 * en el tablero principal para que la gui cambie los 
+	 * correspondientes labels.
 	 */
 	public void actualizarGUI(Iterable<Bloque> bloquesModificados) {
 		interfazGrafica.actualizarLabels(bloquesModificados);
@@ -99,6 +101,13 @@ public class Juego {
 		interfazGrafica.actualizarNuevoTetrimino(sigTetri);
 	}
 	
+	/**
+	 * Este metodo sincronizado evita que se ejecuten 
+	 * dos acciones (bajar, mover derecha o izquierda)
+	 * simultaneamente sobre el mismo tetrimino
+	 * @param operacion Es la accion sobre el tetrimino 
+	 * que se va a ejecutar
+	 */
 	public synchronized void operarJuego(int operacion) {
 		switch(operacion) {
 			case MOVER_ABAJO: {hacerCaer(); break;}
@@ -112,8 +121,7 @@ public class Juego {
 	 * Metodo que llama a los metodos correspondientes de 
 	 * otras clases cuando el jugador pierde
 	 */
-	public void perder() {		
-		
+	public void perder() {			
 		temporizador.detener();
 		interfazGrafica.mostrarPantallaFinal();	
 	}
