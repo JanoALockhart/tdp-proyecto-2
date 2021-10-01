@@ -1,8 +1,6 @@
 package entities;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +15,6 @@ import java.io.InputStream;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
-import javax.swing.JLayeredPane;
 import java.awt.Toolkit;
 
 public class PantallaFinal extends JFrame {
